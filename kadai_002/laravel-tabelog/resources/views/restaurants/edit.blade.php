@@ -22,9 +22,9 @@
         <select name="category_id">
         @foreach ($categories as $category)
             @if ($category->id == $restaurant->category_id)
-                <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+            <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
             @else
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
+            <option value="{{ $category->id }}">{{ $category->name }}</option>
             @endif
         @endforeach
         </select>
