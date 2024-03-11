@@ -167,3 +167,22 @@ label {
 .nagoyameshi-header-fav-icon {
   color: #191919;
 }
+
+.star-rating {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  font-size: 24px;
+  stroke-width: 30px;
+  color: #ccc; /* Default star color */
+}
+
+.star-rating .fas,
+.star-rating .fa-star-half-alt {
+  color: #0fbe9f; /* Highlight color for selected stars */
+}
+
+.star-rating .fa-star.hovered,
+.star-rating .fa-star-half-alt.hovered {
+  color: #66d6c3; /* Highlight color for hovered stars */
+}

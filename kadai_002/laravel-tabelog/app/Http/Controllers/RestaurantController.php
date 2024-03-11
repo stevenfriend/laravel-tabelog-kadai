@@ -57,7 +57,9 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        return view('restaurants.show', compact('restaurant'));
+        $reviews = $restaurant->reviews()->get();
+  
+        return view('restaurants.show', compact('restaurant', 'reviews'));
     }
 
     /**

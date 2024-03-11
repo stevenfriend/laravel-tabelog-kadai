@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ use App\Http\Controllers\RestaurantController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
 Route::resource('restaurants', RestaurantController::class)->middleware(['auth', 'verified']);
 Auth::routes(['verify' => true]);
