@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Restaurant;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RestaurantController extends Controller
 {
@@ -103,5 +104,12 @@ class RestaurantController extends Controller
         $restaurant->delete();
   
         return to_route('restaurants.index');
+    }
+
+    public function favorite(Restaurant $restaurant)
+    {
+        Auth::user()->togglefavorite($restaurant);
+
+        return back();
     }
 }

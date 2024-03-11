@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 Route::post('reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
+Route::get('restaurants/{restaurant}/favorite', [RestaurantController::class, 'favorite'])->name('restaurants.favorite');
 Route::resource('restaurants', RestaurantController::class)->middleware(['auth', 'verified']);
 Auth::routes(['verify' => true]);
 

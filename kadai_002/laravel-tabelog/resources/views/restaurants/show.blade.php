@@ -29,10 +29,17 @@
                         </button>
                     </div>
                     <div class="col-5">
-                        <a href="/restaurants/{{ $restaurant->id }}/favorite" class="btn nagoyameshi-favorite-button text-dark w-100">
+                    @if($restaurant->isFavoritedBy(Auth::user()))
+                        <a href="{{ route('restaurants.favorite', $restaurant) }}" class="btn nagoyameshi-favorite-button text-favorite w-100">
+                            <i class="fa fa-heart"></i>
+                            お気に入り解除
+                        </a>
+                        @else
+                        <a href="{{ route('restaurants.favorite', $restaurant) }}" class="btn nagoyameshi-favorite-button text-favorite w-100">
                             <i class="fa fa-heart"></i>
                             お気に入り
                         </a>
+                        @endif
                     </div>
                 </div>
             </form>
