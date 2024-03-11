@@ -20,6 +20,7 @@
                 </div>
                 @endforeach
             </div>
+            {{ $restaurants->links() }}
         </div>
     </div>
 </div>
