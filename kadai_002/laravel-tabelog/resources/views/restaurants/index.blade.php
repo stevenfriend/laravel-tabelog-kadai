@@ -2,7 +2,16 @@
 
 @section('content')
 <div class="row">
+    <div class="col-2">
+        @component('components.category_selector', ['categories' => $categories])
+        @endcomponent
+    </div>
     <div class="col-9">
+        <div class="container">
+            @if ($category !== null)
+                <h1>{{ $category->name }}のお店 全{{$total_count}}件</h1>
+            @endif
+        </div>
         <div class="container mt-4">
             <div class="row w-100">
                 @foreach($restaurants as $restaurant)

@@ -196,3 +196,16 @@ label {
 .star-rating .fa-star-half-alt.hovered {
   color: #66d6c3; /* Highlight color for hovered stars */
 }
+
+.category-label {
+  width: 156px;
+  height: 20px;
+  font-family: YuGo;
+  font-size: 13px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #191919;
+}

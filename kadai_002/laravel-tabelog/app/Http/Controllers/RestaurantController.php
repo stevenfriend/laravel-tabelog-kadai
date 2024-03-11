@@ -14,11 +14,20 @@ class RestaurantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $restaurants = Restaurant::paginate(15);
+        if ($request->category !== null) {
+            $restaurants = restaurant::where('category_id', $request->category)->paginate(15);
+            $total_count = restaurant::where('category_id', $request->category)->count();
+            $category = Category::find($request->category);
+        } else {
+            $restaurants = restaurant::paginate(15);
+            $total_count = "";
+            $category = null;
+        }
+        $categories = Category::all();
 
-        return view('restaurants.index', compact('restaurants'));
+        return view('restaurants.index', compact('restaurants', 'category', 'categories', 'total_count'));
     }
 
     /**
