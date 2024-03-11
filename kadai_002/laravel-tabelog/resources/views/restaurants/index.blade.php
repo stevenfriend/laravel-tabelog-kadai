@@ -1,26 +1,26 @@
-<a href="{{ route('restaurants.create') }}"> Create New Restaurant</a>
+@extends('layouts.app')
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Category ID</th>
-        <th >Action</th>
-    </tr>
-    @foreach ($restaurants as $restaurant)
-    <tr>
-        <td>{{ $restaurant->name }}</td>
-        <td>{{ $restaurant->description }}</td>
-        <td>{{ $restaurant->category_id }}</td>
-        <td>
-            <form action="{{ route('restaurants.destroy',$restaurant->id) }}" method="POST">
-                <a href="{{ route('restaurants.show',$restaurant->id) }}">Show</a>
-                <a href="{{ route('restaurants.edit',$restaurant->id) }}">Edit</a>
-                @csrf
-                @method('DELETE')
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-    </tr>
-    @endforeach
-</table>
+@section('content')
+<div class="row">
+    <div class="col-9">
+        <div class="container mt-4">
+            <div class="row w-100">
+                @foreach($restaurants as $restaurant)
+                <div class="col-3">
+                    <a href="{{route('restaurants.show', $restaurant)}}">
+                        <img src="{{ asset('img/dummy.png')}}" class="img-thumbnail">
+                    </a>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="nagoyameshi-restaurant-label mt-2">
+                                {{$restaurant->name}}<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
