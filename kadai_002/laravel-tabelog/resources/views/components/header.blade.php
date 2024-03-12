@@ -27,15 +27,17 @@
         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
         </li>
         <hr>
-        <li class="nav-item mr-5">
-        <a class="nav-link" href="{{ route('login') }}"><i class="far fa-heart"></i></a>
-        </li>
         @else
         <li class="nav-item mr-5">
-           <a class="nav-link" href="{{ route('mypage') }}">
-             <i class="fas fa-user mr-1"></i><label>マイページ</label>
-           </a>
-         </li>
+            <a class="nav-link" href="{{ route('mypage') }}">
+                <i class="fas fa-user mr-1"></i><label>マイページ</label>
+            </a>
+        </li>
+        <li class="nav-item mr-5">
+            <a class="nav-link" href="{{ route('mypage.favorite') }}">
+                <i class="fas fa-heart"></i>
+            </a>
+        </li>
         @endguest
     </ul>
     </div>

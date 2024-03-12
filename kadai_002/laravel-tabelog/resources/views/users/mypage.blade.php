@@ -61,13 +61,13 @@
                     </div>
                     <div class="col-9 d-flex align-items-center ms-2 mt-3">
                         <div class="d-flex flex-column">
-                            <label>気に入ったお店</label>
-                            <p>気に入ったお店を見ます</p>
+                            <label>お気に入り</label>
+                            <p>お気に入りしたお店を見ます</p>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <a href="{{route('mypage')}}">
+                    <a href="{{route('mypage.favorite')}}">
                         <i class="fas fa-chevron-right fa-2x"></i>
                     </a>
                 </div>

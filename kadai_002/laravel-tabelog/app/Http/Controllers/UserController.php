@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Restaurant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -78,5 +79,14 @@ class UserController extends Controller
         }
 
         return to_route('mypage');
+    }
+
+    public function favorite()
+    {
+        $user = Auth::user();
+
+        $favorites = $user->favorites(Restaurant::class)->get();
+
+        return view('users.favorite', compact('favorites'));
     }
 }
