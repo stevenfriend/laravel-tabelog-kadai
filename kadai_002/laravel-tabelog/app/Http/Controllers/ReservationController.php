@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Review;
+use App\Models\Reservation;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ReviewController extends Controller
+class ReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,9 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        $reservations = reservation::with('restaurant')->where('user_id', Auth::user()->id)->paginate(15);
+
+        return view('reservations.index', compact('reservations'));
     }
 
     /**
@@ -23,7 +26,7 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
     }
@@ -36,17 +39,13 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'rating' => 'required|numeric|min:1|max:5',
-            'content' => 'required'
-        ]);
-
-        $review = new Review();
-        $review->restaurant_id = $request->input('restaurant_id');
-        $review->user_id = Auth::user()->id;
-        $review->content = $request->input('content');
-        $review->rating = $request->input('rating');
-        $review->save();
+        $reservation = new Reservation();
+        $reservation->reservation_date = $request->input('reservation_date');
+        $reservation->reservation_time = $request->input('reservation_time');
+        $reservation->number_of_people = $request->input('number_of_people');
+        $reservation->restaurant_id = $request->input('restaurant_id');
+        $reservation->user_id = Auth::user()->id;
+        $reservation->save();
 
         return back();
     }
@@ -54,10 +53,10 @@ class ReviewController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Review  $review
+     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function show(Review $review)
+    public function show(Reservation $reservation)
     {
         //
     }
@@ -65,10 +64,10 @@ class ReviewController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Review  $review
+     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Review $review)
+    public function edit(Reservation $reservation)
     {
         //
     }
@@ -77,10 +76,10 @@ class ReviewController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Review  $review
+     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Review $review)
+    public function update(Request $request, Reservation $reservation)
     {
         //
     }
@@ -88,10 +87,10 @@ class ReviewController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Review  $review
+     * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Review $review)
+    public function destroy(Reservation $reservation)
     {
         //
     }

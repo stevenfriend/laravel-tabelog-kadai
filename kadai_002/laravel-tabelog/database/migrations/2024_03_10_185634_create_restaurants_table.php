@@ -17,12 +17,15 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->text('address')->nullable();
-            $table->string('telephone')->nullable();
-            $table->text('description')->nullable();
-            $table->time('opening_time')->nullable();
-            $table->time('closing_time')->nullable();
-            $table->json('days_closed')->nullable(); // Stores an array of days the restaurant is closed
+            $table->string('postal_code');
+            $table->string('address');
+            $table->string('telephone');
+            $table->text('description');
+            $table->time('opening_time');
+            $table->time('closing_time');
+            $table->string('days_closed');
+            $table->integer('seating_capacity');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

@@ -26,6 +26,34 @@
                 </div>
 
                 <div class="form-group row">
+                    <label for="furigana" class="col-md-5 col-form-label text-md-left">ふりがな<span class="ml-1 nagoyameshi-require-input-label"><span class="nagoyameshi-require-input-label-text">必須</span></span></label>
+
+                    <div class="col-md-7">
+                        <input id="furigana" type="text" class="form-control @error('furigana') is-invalid @enderror nagoyameshi-login-input" name="furigana" value="{{ old('furigana') }}" required autocomplete="furigana" autofocus>
+
+                        @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>氏名のふりがなを入力してください</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="nickname" class="col-md-5 col-form-label text-md-left">ニックネーム<span class="ml-1 nagoyameshi-require-input-label"><span class="nagoyameshi-require-input-label-text">必須</span></span></label>
+
+                    <div class="col-md-7">
+                        <input id="nickname" type="text" class="form-control @error('nickname') is-invalid @enderror nagoyameshi-login-input" name="nickname" value="{{ old('nickname') }}" required autocomplete="nickname" autofocus>
+
+                        @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>ニックネームを入力してください</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <label for="email" class="col-md-5 col-form-label text-md-left">メールアドレス<span class="ml-1 nagoyameshi-require-input-label"><span class="nagoyameshi-require-input-label-text">必須</span></span></label>
 
                     <div class="col-md-7">
@@ -34,6 +62,20 @@
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>メールアドレスを入力してください</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="telephone" class="col-md-5 col-form-label text-md-left">電話番号<span class="ml-1 nagoyameshi-require-input-label"><span class="nagoyameshi-require-input-label-text">必須</span></span></label>
+
+                    <div class="col-md-7">
+                        <input id="telephone" type="text" class="form-control @error('email') is-invalid @enderror nagoyameshi-login-input" name="telephone" value="{{ old('telephone') }}" required autocomplete="email">
+
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>電話番号を入力してください</strong>
                         </span>
                         @enderror
                     </div>

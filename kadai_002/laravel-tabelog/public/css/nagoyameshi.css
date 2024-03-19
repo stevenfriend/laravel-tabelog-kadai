@@ -211,7 +211,16 @@ label {
 }
 
 .nagoyameshi-button {
-  border-radius: 2px;
   color: #ffffff;
+  border-color:  #0fbe9f;
   background-color: #0fbe9f;
+
+}
+
+.nagoyameshi-button:hover,
+.nagoyameshi-button:not(:disabled):not(.disabled):active {
+  color: #ffffff;
+  border-color:  #0da88c;
+  background-color: #0da88c;
+  box-shadow: none;;
 }
