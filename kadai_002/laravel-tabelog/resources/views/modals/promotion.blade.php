@@ -6,7 +6,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
         </div>
         <div class="modal-body fs-5">
-            <p>有料会員になると、以下の特典が得られます：</p>
+            <p>月300円の有料会員になると、以下の特典が得られます：</p>
             <ul>
             <li>店舗の予約</li>
             <li>店舗の気に入り登録</li>
@@ -16,7 +16,11 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-            <a href="membership-signup-url" class="btn btn-primary nagoyameshi-button">有料会員に登録</a>
+            @if(Auth::user())
+            <a href="{{route('subscription.create')}}" class="btn btn-primary nagoyameshi-button">有料会員登録</a>
+            @else
+            <a href="{{ route('register') }}" class="btn btn-primary nagoyameshi-button">{{ __('Register') }}</a>
+            @endif
         </div>
         </div>
     </div>

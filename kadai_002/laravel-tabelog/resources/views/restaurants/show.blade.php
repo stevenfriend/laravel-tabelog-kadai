@@ -3,13 +3,13 @@
 @section('content')
 
 @php
-    $paid_member = false;
+    $subscribed = false;
 @endphp
 
 @auth
-    @if(auth()->user()->paid_member)
+    @if(auth()->user()->subscribed('premium_plan'))
         @php
-            $paid_member = true;
+            $subscribed = true;
         @endphp
     @endif
 @endauth
@@ -28,7 +28,7 @@
             <p class="card-text">{{$restaurant->description}}</p>
             <div class="row mb-2 g-2">
             <div class="col">
-            @if($paid_member)
+            @if($subscribed)
                 <button type="button" class="btn btn-primary nagoyameshi-button w-100" data-bs-toggle="modal" data-bs-target="#reservationModal">
                     予約をする
                 </button>
@@ -39,7 +39,7 @@
             @endif
             </div>
             <div class="col">
-            @if($paid_member)
+            @if($subscribed)
                 @if($restaurant->isFavoritedBy(Auth::user()))
                 <a href="{{ route('restaurants.favorite', $restaurant) }}" class="btn nagoyameshi-button text-favorite w-100">
                     <i class="fa fa-heart"></i>お気に入り解除
@@ -93,7 +93,7 @@
                 <h2 class="mb-0">レビュー</h3>
             </div>
             <div class="ms-auto">
-                @if($paid_member)
+                @if($subscribed)
                     <button type="button" class="btn btn-primary nagoyameshi-button" data-bs-toggle="modal" data-bs-target="#reviewModal">
                         レビューを投稿
                     </button>
@@ -107,7 +107,7 @@
         <hr>
         @foreach($reviews as $review)
         <div class="offset-md-1 p-2">
-            <h3>{{$review->user->nickname}}さん</h3>
+            <h3>{{$review->user->name}}さん</h3>
             @php
                 $fullStars = floor($review->rating); // Number of full stars
                 $halfStar = $review->rating - $fullStars > 0 ? 1 : 0; // Determine if there's a half star
@@ -124,6 +124,7 @@
                     <i class="far fa-star" style="color: #0fbe9f;"></i> {{-- Empty Star --}}
                 @endfor
             </div>
+            <h3>{{$review->title}}</h3>
             <p>{{$review->content}}</p>
             <label>{{$review->created_at}}</label>
         </div>

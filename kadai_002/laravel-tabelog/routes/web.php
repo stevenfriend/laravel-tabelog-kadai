@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ use App\Http\Controllers\ReviewController;
 */
 
 Route::get('/',  [WebController::class, 'index'])->name('top');
+Route::get('/home', [WebController::class, 'index'])->name('home');
 
 Route::controller(ReservationController::class)->group(function () {
     Route::get('/reservations', 'index')->name('reservations.index')->middleware(['auth', 'verified']);
@@ -34,6 +36,15 @@ Route::controller(UserController::class)->group(function () {
     Route::put('users/mypage/password', 'update_password')->name('mypage.update_password');
 });
 
+Route::controller(SubscriptionController::class)->group(function () {
+    Route::get('subscription/create', 'create')->name('subscription.create')->middleware(['auth', 'verified']);
+    Route::post('subscription/store', 'store')->name('subscription.store')->middleware(['auth', 'verified']);
+    Route::get('subscription/edit', 'edit')->name('subscription.edit');
+    Route::put('subscription/update', 'update')->name('subscription.update');
+    Route::get('subscription/cancel', 'cancel')->name('subscription.cancel');
+    Route::delete('subscription/destroy', 'destroy')->name('subscription.destroy');
+});
+
 Route::post('reviews', [ReviewController::class, 'store'])->name('reviews.store');
 Route::post('reservations', [ReservationController::class, 'store'])->name('reservations.store');
 
@@ -41,4 +52,4 @@ Route::get('restaurants/{restaurant}/favorite', [RestaurantController::class, 'f
 Route::resource('restaurants', RestaurantController::class);
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

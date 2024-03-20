@@ -32,5 +32,8 @@
         @component('components.footer')
         @endcomponent
     </div>
+
+    <!-- Scripts Stack -->
+    @stack('scripts')
 </body>
 </html>

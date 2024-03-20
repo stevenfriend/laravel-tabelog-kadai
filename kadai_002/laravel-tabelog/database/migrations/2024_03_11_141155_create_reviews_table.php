@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->on('users')->onDelete('cascade');
             $table->foreignId('restaurant_id')->on('restaurants')->onDelete('cascade');
+            $table->string('title');
             $table->text('content');
             $table->decimal('rating', 2, 1);
             $table->timestamps();
