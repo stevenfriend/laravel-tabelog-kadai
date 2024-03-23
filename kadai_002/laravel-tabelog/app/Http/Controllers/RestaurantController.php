@@ -18,17 +18,16 @@ class RestaurantController extends Controller
     public function index(Request $request)
     {
         if ($request->category !== null) {
-            $restaurants = restaurant::where('category_id', $request->category)->paginate(15);
+            $restaurants = restaurant::where('category_id', $request->category)->paginate(5);
             $total_count = restaurant::where('category_id', $request->category)->count();
             $category = Category::find($request->category);
         } else {
-            $restaurants = restaurant::paginate(15);
+            $restaurants = restaurant::paginate(5);
             $total_count = "";
             $category = null;
         }
-        $categories = Category::all();
 
-        return view('restaurants.index', compact('restaurants', 'category', 'categories', 'total_count'));
+        return view('restaurants.index', compact('restaurants', 'category', 'total_count'));
     }
 
     /**
@@ -38,9 +37,7 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-
-        return view('restaurants.create', compact('categories'));
+        return view('restaurants.create');
     }
 
     /**
@@ -69,7 +66,7 @@ class RestaurantController extends Controller
     public function show(Restaurant $restaurant)
     {
         $reviews = $restaurant->reviews()->get();
-  
+
         return view('restaurants.show', compact('restaurant', 'reviews'));
     }
 
@@ -81,9 +78,7 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        $categories = Category::all();
-
-        return view('restaurants.edit', compact('restaurant', 'categories'));
+        return view('restaurants.edit', compact('restaurant'));
     }
 
     /**

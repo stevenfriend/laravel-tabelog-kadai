@@ -244,3 +244,15 @@ label {
 .nagoyameshi-card-error {
   display: none;
 }
+
+.category-menu {
+  padding: 5px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+  width: 90vw;
+  gap: 5px;
+}
+
+.category-button {
+  width: 100%;
+}
