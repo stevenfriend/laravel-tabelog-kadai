@@ -10,18 +10,24 @@
             <form id="review" method="POST" action="{{ route('reviews.store') }}">
                 @csrf
                 <input type="hidden" name="restaurant_id" value="{{$restaurant->id}}">
-                <!-- 星評価 -->
+                <!-- 評価 -->
                 <div class="mb-3">
-                    <label class="form-label">星評価:</label>
+                    <label class="form-label">評価</label>
                     <div class="star-rating">
                     @component('components.star_rating')
                     @endcomponent
                     </div>
                 </div>
+
+                <!-- タイトル -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">タイトル</label>
+                    <input class="form-control" id="title" name="title" type="text" required>
+                </div>
                 
                 <!-- 内容 -->
                 <div class="mb-3">
-                    <label for="content" class="form-label">レビュー:</label>
+                    <label for="content" class="form-label">レビュー</label>
                     <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
                 </div>
             </form>

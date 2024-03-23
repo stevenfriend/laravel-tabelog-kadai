@@ -37,13 +37,15 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'rating' => 'required|numeric|min:1|max:5',
+            'rating' => 'required|numeric|min:.5|max:5',
+            'title' => 'required',
             'content' => 'required'
         ]);
 
         $review = new Review();
         $review->restaurant_id = $request->input('restaurant_id');
         $review->user_id = Auth::user()->id;
+        $review->title = $request->input('title');
         $review->content = $request->input('content');
         $review->rating = $request->input('rating');
         $review->save();
@@ -93,6 +95,8 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        $review->delete();
+
+        return redirect()->back()->with('success', 'レビューが正常に削除されました。');
     }
 }

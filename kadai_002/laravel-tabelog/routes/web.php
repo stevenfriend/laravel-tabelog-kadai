@@ -46,6 +46,8 @@ Route::controller(SubscriptionController::class)->group(function () {
 });
 
 Route::post('reviews', [ReviewController::class, 'store'])->name('reviews.store');
+Route::delete('reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+
 Route::post('reservations', [ReservationController::class, 'store'])->name('reservations.store');
 
 Route::get('restaurants/{restaurant}/favorite', [RestaurantController::class, 'favorite'])->name('restaurants.favorite');

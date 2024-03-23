@@ -256,3 +256,40 @@ label {
 .category-button {
   width: 100%;
 }
+
+#restaurant-main-container {
+  max-width: 650px;
+  background-color: white;
+}
+
+#restaurant-carousel .carousel-inner {
+  border-radius: 10px;
+  width: 100%;
+  height: 300px;
+}
+
+#restaurant-carousel .carousel-item {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+.rating-star {
+  color: #0fbe9f;
+  font-size: 20px;
+}
+
+.card-body {
+  background-color: none;
+  overflow: hidden;
+}
+
+.card {
+  background-color: white;
+}

@@ -65,9 +65,11 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        $reviews = $restaurant->reviews()->get();
+        $rating = $restaurant->reviews()->avg('rating');
+        $reviews = $restaurant->reviews()->orderBy('created_at', 'desc')->get();
+        $reviews_count = $restaurant->reviews()->count();
 
-        return view('restaurants.show', compact('restaurant', 'reviews'));
+        return view('restaurants.show', compact('restaurant', 'rating', 'reviews', 'reviews_count'));
     }
 
     /**
