@@ -293,3 +293,18 @@ label {
 .card {
   background-color: white;
 }
+
+.restaurant-card,
+.restaurant-card:hover,
+.restaurant-card:focus,
+.restaurant-cardk:active {
+  text-decoration: none; /* Removes underline */
+  color: inherit; /* Keeps the text color the same as the surrounding text */
+}
+
+.img-container img {
+  width: 100%; /* Make the image fill the width */
+  height: 100%; /* Make the image fill the height */
+  object-fit: cover; /* Resize the image to cover the container */
+  object-position: center; /* Center the image within the container */
+}

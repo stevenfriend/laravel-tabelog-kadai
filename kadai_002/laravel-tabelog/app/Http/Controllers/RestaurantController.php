@@ -17,16 +17,27 @@ class RestaurantController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->category !== null) {
-            $restaurants = restaurant::where('category_id', $request->category)->paginate(5);
-            $total_count = restaurant::where('category_id', $request->category)->count();
-            $category = Category::find($request->category);
-        } else {
-            $restaurants = restaurant::paginate(5);
-            $total_count = "";
-            $category = null;
+        $query = Restaurant::with('reviews')->withAvg('reviews', 'rating')->withCount('reviews');
+    
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
         }
-
+    
+        switch ($request->input('sort_by')) {
+            case 'rating_desc':
+                $query->orderBy('reviews_avg_rating', 'desc');
+                break;
+            case 'created_at_desc':
+                $query->orderBy('created_at', 'desc');
+                break;
+            default:
+                break;
+        }
+    
+        $restaurants = $query->paginate(5);
+        $total_count = $query->count();
+        $category = $request->filled('category') ? Category::find($request->category) : null;
+    
         return view('restaurants.index', compact('restaurants', 'category', 'total_count'));
     }
 
@@ -66,7 +77,7 @@ class RestaurantController extends Controller
     public function show(Restaurant $restaurant)
     {
         $rating = $restaurant->reviews()->avg('rating');
-        $reviews = $restaurant->reviews()->orderBy('created_at', 'desc')->get();
+        $reviews = $restaurant->reviews()->orderBy('created_at', 'desc')->paginate(5);
         $reviews_count = $restaurant->reviews()->count();
 
         return view('restaurants.show', compact('restaurant', 'rating', 'reviews', 'reviews_count'));

@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">ホーム</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('mypage') }}">マイページ</a></li>
+        <li class="breadcrumb-item active" aria-current="page">パスワード変更</li>
+    </ol>
+</nav>
+
 <div class="container">
     <form method="post" action="{{route('mypage.update_password')}}">
         @csrf

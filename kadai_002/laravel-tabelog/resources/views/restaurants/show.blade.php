@@ -14,6 +14,14 @@
     @endif
 @endauth
 
+<nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">ホーム</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('restaurants.index') }}">店舗一覧</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ $restaurant->name }}</li>
+    </ol>
+</nav>
+
 <div class="d-flex flex-column align-items-center justify-content-center mx-auto p-4 rounded" id="restaurant-main-container">
     <div>
         <div id="restaurant-carousel" class="carousel slide mb-4">
@@ -50,7 +58,7 @@
         </div>
 
         <div class="mb-5">
-            <h1>{{$restaurant->name}}</h2>
+            <h1>{{ $restaurant->name }}</h2>
             @php
                 $fullStars = floor($rating);
                 $halfStar = $rating - $fullStars >= 0.5 ? 1 : 0;
@@ -66,10 +74,10 @@
                 @for ($i = 0; $i < $emptyStars; $i++)
                     <i class="far fa-star rating-star"></i>
                 @endfor
-                <div class="px-2 fs-5"><b>{{round($rating, 1)}}</b>（{{$reviews_count}}件）</div>
+                <div class="px-2 fs-5"><b>{{ round($rating, 1) }}</b>（{{ $reviews_count }}件）</div>
             </div>
             <hr>
-            <p class="fs-5">{{$restaurant->description}}</p>
+            <p class="fs-5">{{ $restaurant->description }}</p>
             <div class="row mb-2 g-2 pb-2">
                 <div class="col">
                 @if($subscribed)
@@ -109,30 +117,30 @@
                     $openingTime = new DateTime($restaurant->opening_time);
                     $colsingTime = new DateTime($restaurant->closing_time);
                     @endphp
-                    {{$openingTime->format('H:i')}}〜{{$colsingTime->format('H:i')}}
+                    {{ $openingTime->format('H:i') }}〜{{ $colsingTime->format('H:i') }}
                     </th>
                     </tr>
                     <tr>
                     <th scope="row" style="width: 100px;">定休日</th>
-                    <td>{{$restaurant->days_closed}}</td>
+                    <td>{{ $restaurant->days_closed }}</td>
                     </tr>
                     <tr>
                     <th scope="row" style="width: 100px;">座席数</th>
-                    <td>{{$restaurant->seating_capacity}}席</td>
+                    <td>{{ $restaurant->seating_capacity }}席</td>
                     </tr>
                     <tr>
                     <th scope="row" style="width: 100px;">電話番号</th>
-                    <td>{{$restaurant->telephone}}</th>
+                    <td>{{ $restaurant->telephone }}</th>
                     </tr>
                     <tr>
                     <th scope="row" style="width: 100px;">住所</th>
                     <td>
-                        〒{{$restaurant->postal_code}}<br>
-                        {{$restaurant->address}}
+                        〒{{ $restaurant->postal_code }}<br>
+                        {{ $restaurant->address }}
                     </td>
                     </tr>
                     <th scope="row" style="width: 100px;">カテゴリ</th>
-                    <td>{{$restaurant->category->name}}</td>
+                    <td>{{ $restaurant->category->name }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -154,7 +162,7 @@
         <hr>
         @foreach($reviews as $review)
         <div class="card mb-3">
-            <h5 class="card-header bg-secondary text-white">{{$review->user->name}}さん</h5>
+            <h5 class="card-header bg-secondary text-white">{{ $review->user->name }}さん</h5>
             <div class="card-body">
                 <div class="rating d-flex align-items-center mb-3">
                 @php
@@ -173,9 +181,9 @@
                 @endfor
                     <h5 class="card-title fw-bold mb-0 mx-2">{{$review->title}}</h5>
                 </div>
-                <p class="card-text fs-6">{{$review->content}}</p>
+                <p class="card-text fs-6">{{ $review->content }}</p>
                 <div class="d-flex justify-content-between w-100">
-                    <p class="card-text"><small class="text-body-secondary">{{date("Y年m月d日", strtotime($review->created_at));}} にレビュー済み</small></p>
+                    <p class="card-text"><small class="text-body-secondary">{{ date("Y年m月d日", strtotime($review->created_at)); }} にレビュー済み</small></p>
                     @if($subscribed && auth()->user()->id === $review->user_id)
                     <form class="d-flex justify-content-end m-0" action="{{ route('reviews.destroy', ['review' => $review->id]) }}" method="POST">
                         <a href="#" class="btn btn-primary nagoyameshi-button ms-1">編集</a>
@@ -188,6 +196,7 @@
             </div>
         </div>
         @endforeach
+        {{ $reviews->links() }}
 </div>
 
 @endsection

@@ -1,12 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+<nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">ホーム</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('mypage') }}">マイページ</a></li>
+        <li class="breadcrumb-item active" aria-current="page">員情報の編集</li>
+    </ol>
+</nav>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-5">
-            <span>
-                <a href="{{ route('mypage') }}">マイページ</a> > 会員情報の編集
-            </span>
 
             <h1 class="mt-3 mb-3">会員情報の編集</h1>
             <hr>
