@@ -285,6 +285,11 @@ label {
   font-size: 20px;
 }
 
+.rating-star-small {
+  color: #0fbe9f;
+  font-size: 12px;
+}
+
 .card-body {
   background-color: none;
   overflow: hidden;
@@ -307,4 +312,16 @@ label {
   height: 100%; /* Make the image fill the height */
   object-fit: cover; /* Resize the image to cover the container */
   object-position: center; /* Center the image within the container */
+}
+
+.top-page-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 10px;
+}
+
+#top-page-main-container {
+  max-width: 1200px;
+  background-color: white;
 }

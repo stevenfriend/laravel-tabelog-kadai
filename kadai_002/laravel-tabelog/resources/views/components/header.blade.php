@@ -41,9 +41,9 @@
     <div class="collapse" id="navbarCategories">
         <ul class="category-menu m-3">
         @foreach ($categories as $category)
-        <li class="list-group-item">
-        <a href="{{ route('restaurants.index', ['category' => $category->id]) }}"><button class="btn btn-primary nagoyameshi-button category-button" type="button">{{ $category->name }}</button></a>
-        </li>
+            <li class="list-group-item">
+                <a href="{{ route('restaurants.index', ['category' => $category->id]) }}"><button class="btn btn-primary nagoyameshi-button category-button" type="button">{{ $category->name }}</button></a>
+            </li>
         @endforeach
         </ul>
     </div>

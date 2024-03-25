@@ -61,7 +61,7 @@
                         @for ($i = 0; $i < $emptyStars; $i++)
                             <i class="far fa-star rating-star"></i>
                         @endfor
-                        <div class="px-2 fs-5"><b>{{ round($rating, 1) }}</b>（{{ $restaurant->reviews_count }}件）</div>
+                        <div class="ps-2 fs-5"><b>{{ round($rating, 1) }}</b>（{{ $restaurant->reviews_count }}件）</div>
                     </div>
                     @php
                         $description = $restaurant->description;
