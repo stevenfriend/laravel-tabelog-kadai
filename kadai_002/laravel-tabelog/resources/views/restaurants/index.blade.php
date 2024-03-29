@@ -15,22 +15,21 @@
     <div class="d-flex justify-content-between align-items-center w-100 mb-3">
     @if ($category == null)
         <div>
-            <h1 class="m-0">（全{{ $total_count }}件）</h1>
+            <h1 class="m-0">（全{{ $restaurants->total() }}件）</h1>
         </div>
     @else
         <div>
-            <h1 class="m-0">{{ $category->name }}のお店 （全{{ $total_count }}件）</h1>
+            <h1 class="m-0">{{ $category->name }}のお店 （全{{ $restaurants->total() }}件）</h1>
         </div>
     @endif
         <div class="ms-auto">
             <form method="GET" action="{{ route('restaurants.index') }}">
-            @csrf
                 <input type="hidden" name="category" value="{{ $category->id ?? '' }}">
-            <select class="form-select" name="sort_by" aria-label="Default select example" onchange="this.form.submit();">
-                <option value="" {{ request('sort_by') == '' ? 'selected' : '' }}>標準【PR店舗優先順】</option>
-                <option value="rating_desc" {{ request('sort_by') == 'rating_desc' ? 'selected' : '' }}>評価が高い順</option>
-                <option value="created_at_desc" {{ request('sort_by') == 'created_at_desc' ? 'selected' : '' }}>掲載日が新しい順</option>
-            </select>
+                <select class="form-select" name="sort_by" aria-label="Default select example" onchange="this.form.submit();">
+                    <option value="" {{ request('sort_by') == '' ? 'selected' : '' }}>標準【PR店舗優先順】</option>
+                    <option value="rating_desc" {{ request('sort_by') == 'rating_desc' ? 'selected' : '' }}>評価が高い順</option>
+                    <option value="created_at_desc" {{ request('sort_by') == 'created_at_desc' ? 'selected' : '' }}>掲載日が新しい順</option>
+                </select>
             </form>
         </div>
     </div>

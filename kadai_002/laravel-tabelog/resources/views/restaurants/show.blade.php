@@ -195,8 +195,6 @@
 
 </div>
 
-@endsection
-
 <!-- プロモモーダル -->
 @include('modals.promotion')
 
@@ -205,3 +203,5 @@
 
 <!-- レビューモーダル -->
 @include('modals.review')
+
+@endsection

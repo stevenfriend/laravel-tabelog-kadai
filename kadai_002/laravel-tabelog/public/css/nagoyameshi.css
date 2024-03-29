@@ -171,8 +171,14 @@ label {
   background-color: #ffffff;
 }
 
-.nagoyameshi-header-search-input {
+.nagoyameshi-search-input {
   border: solid 1px #e5e5e5;
+  border-radius: 0;
+}
+
+.nagoyameshi-search-input:focus {
+  border-color: #0fbe9f;
+  box-shadow: 0 0 0 0.2rem rgba(15, 190, 159, 0.5);
 }
 
 .nagoyameshi-header-search-button {
@@ -233,7 +239,6 @@ label {
   color: #ffffff;
   border-color:  #0fbe9f;
   background-color: #0fbe9f;
-
 }
 
 .nagoyameshi-button:hover,
@@ -242,6 +247,15 @@ label {
   border-color:  #0da88c;
   background-color: #0da88c;
   box-shadow: none;;
+}
+
+.nagoyameshi-category-button {
+  width: 150px;
+}
+
+.nagoyameshi-search-button {
+  border-radius: 0 0.375rem 0.375rem 0;
+  height: 37px;
 }
 
 /* クレジットカード番号入力フォーム */

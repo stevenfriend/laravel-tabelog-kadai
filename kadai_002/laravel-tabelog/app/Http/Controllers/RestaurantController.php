@@ -17,10 +17,21 @@ class RestaurantController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Restaurant::with('reviews')->withAvg('reviews', 'rating')->withCount('reviews');
+        $query = Restaurant::with('reviews')->withAvg('reviews', 'rating')->withCount('reviews')
+                    ->with('category');
     
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);
+        }
+
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
+            $query->where(function($q) use ($keyword) {
+                $q->where('name', 'LIKE', "%{$keyword}%")
+                  ->orWhereHas('category', function($qr) use ($keyword) {
+                      $qr->where('name', 'LIKE', "%{$keyword}%");
+                  });
+            });
         }
     
         switch ($request->input('sort_by')) {
