@@ -97,6 +97,17 @@ label {
   background-color: #ffffff;
 }
 
+.form-check-input:checked {
+  background-color: #0fbe9f;
+  border: #0da88c
+}
+
+.nagoyameshi-login-input:focus,
+.form-check-input:focus {
+  border-color: #0fbe9f;
+  box-shadow: 0 0 0 0.2rem rgba(15, 190, 159, 0.5);
+}
+
 .nagoyameshi-check-label {
   font-family: YuGo;
   font-size: 12px;
@@ -109,8 +120,10 @@ label {
 }
 
 .nagoyameshi-require-input-label {
-  border-radius: 1px;
+  margin-left: 10px;
+  padding: 3px;
   background-color: #e2001b;
+  border-radius: 25%/50%;
 }
 
 .nagoyameshi-require-input-label-text {
@@ -145,6 +158,12 @@ label {
   line-height: normal;
   letter-spacing: normal;
   color: #0fbe9f;
+  text-decoration: none;
+}
+
+.nagoyameshi-login-text:hover,
+.nagoyameshi-login-text:active {
+  color:  #0da88c;
 }
 
 .nagoyameshi-header-container {
@@ -257,9 +276,8 @@ label {
   width: 100%;
 }
 
-#restaurant-main-container {
+#main-container {
   max-width: 650px;
-  background-color: white;
 }
 
 #restaurant-carousel .carousel-inner {
@@ -301,8 +319,7 @@ label {
 
 .restaurant-card,
 .restaurant-card:hover,
-.restaurant-card:focus,
-.restaurant-cardk:active {
+.restaurant-card:focus {
   text-decoration: none; /* Removes underline */
   color: inherit; /* Keeps the text color the same as the surrounding text */
 }
@@ -323,5 +340,60 @@ label {
 
 #top-page-main-container {
   max-width: 1200px;
-  background-color: white;
+}
+
+
+
+
+/* Custom pagination styles */
+
+/* Background color for the active page */
+.pagination .page-item.active .page-link {
+    color: #fff; /* Color for page numbers */
+    background-color: #0fbe9f; /* Bootstrap primary color example */
+    border-color: #0fbe9f; /* Border color to match */
+}
+
+/* Text color for the pages */
+.pagination .page-link {
+    color: #6c757d; /* Color for page numbers */
+}
+
+/* Hover effects */
+.pagination .page-link:hover {
+    color: #fff; /* Darker shade for hover state */
+    background-color: #6c757d; /* Light background on hover */
+    border-color: #dee2e6; /* Light border color on hover */
+}
+
+/* Disabled state */
+.pagination .page-item.disabled .page-link {
+    color: #6c757d; /* Muted text color for disabled */
+    background-color: #fff; /* White background for disabled */
+    border-color: #dee2e6; /* Light border for disabled */
+}
+
+/* Custom focus styles for pagination links */
+.pagination .page-link:focus {
+  border-color: #0fbe9f; /* Example focus border color */
+  box-shadow: 0 0 0 0.2rem rgba(15, 190, 159, 0.5); /* Optional: Custom focus shadow */
+}
+
+.breadcrumb-item {
+  font-weight: bold;
+}
+
+.breadcrumb-item > a {
+  color: #0fbe9f;
+  text-decoration: none;
+}
+
+.breadcrumb-item > a:hover {
+  color: #0da88c;
+  text-decoration: none;
+}
+
+
+.my-custom-hr {
+  border-top: 1px solid #ccc; /* Example: Light gray solid line */
 }

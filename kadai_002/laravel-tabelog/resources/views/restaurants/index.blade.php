@@ -2,14 +2,16 @@
 
 @section('content')
 
-<nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+<div class="d-flex flex-column align-items-center justify-content-center mx-auto" id="main-container">
+
+<nav class="my-3 me-auto" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="{{ route('home') }}">ホーム</a></li>
         <li class="breadcrumb-item active" aria-current="page">店舗一覧</li>
     </ol>
 </nav>
 
-<div class="d-flex flex-column align-items-center justify-content-center mx-auto p-4 rounded" id="restaurant-main-container">
+<div class="d-flex flex-column align-items-center justify-content-center bg-white mx-auto p-4 rounded">
     <div class="d-flex justify-content-between align-items-center w-100 mb-3">
     @if ($category == null)
         <div>

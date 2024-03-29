@@ -2,8 +2,19 @@
 
 @section('content')
 
-<div id="content-containter">
-    <div class="d-flex flex-column align-items-center justify-content-center mx-auto p-4 rounded" id="top-page-main-container">
+<div class="d-flex flex-column align-items-center justify-content-center mx-auto" id="top-page-main-container">
+@if (session('login_success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('login_success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@elseif (session('logout_success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('logout_success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+    <div class="bg-white p-4 rounded">
     <div class="container mb-4 p-0">
         <h2 class="me-auto">おすすめのお店</h2>
         <div class="container p-0">
