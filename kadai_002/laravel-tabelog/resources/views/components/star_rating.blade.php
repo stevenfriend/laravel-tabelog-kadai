@@ -7,14 +7,14 @@
        <i class="far fa-star" data-index="{{ $i }}"></i>
     @endfor
 
-    <!-- Hidden input for the rating value -->
     <input type="hidden" name="rating" id="ratingInput" value="">
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const stars = document.querySelectorAll('.star-rating .fa-star');
-  let selectedRating = 0; // Tracks the selected rating
+  let selectedRating = document.getElementById('ratingInput');
+  let ratingInput = document.getElementById('ratingInput');
 
   stars.forEach((star, index) => {
     star.addEventListener('mousemove', (e) => hoverStars(e, index));
@@ -25,10 +25,10 @@ document.addEventListener('DOMContentLoaded', function () {
   function hoverStars(e, index) {
     clearHover();
     let isHalf = e.offsetX < e.target.offsetWidth / 2;
-    stars.forEach((star, idx) => {
-      if (idx < index || (isHalf && idx === index)) {
+    stars.forEach((star, i) => {
+      if (i < index || (isHalf && i === index)) {
         star.classList.add('hovered');
-      } else if (!isHalf && idx === index) {
+      } else if (!isHalf && i === index) {
         star.classList.add('hovered');
       }
     });
@@ -42,18 +42,16 @@ document.addEventListener('DOMContentLoaded', function () {
     let isHalf = e.offsetX < e.target.offsetWidth / 2;
     selectedRating = isHalf ? index + 0.5 : index + 1;
     updateStars();
-
-    // Update the hidden input's value
     document.getElementById('ratingInput').value = selectedRating;
   }
 
   function updateStars() {
-    stars.forEach((star, idx) => {
+    stars.forEach((star, i) => {
       star.classList.remove('fas', 'fa-star-half-alt');
       star.classList.add('far');
-      if (idx + 1 <= selectedRating) {
+      if (i + 1 <= selectedRating) {
         star.classList.add('fas');
-      } else if (idx + 0.5 === selectedRating) {
+      } else if (i + 0.5 === selectedRating) {
         star.classList.add('fas', 'fa-star-half-alt');
       }
     });

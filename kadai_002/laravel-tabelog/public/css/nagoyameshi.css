@@ -92,7 +92,6 @@ label {
 }
 
 .nagoyameshi-login-input {
-  border-radius: 2px;
   border: solid 1px #b2b2b2;
   background-color: #ffffff;
 }
@@ -102,6 +101,8 @@ label {
   border: #0da88c
 }
 
+.btn-close:focus,
+.nagoyameshi-review-input:focus,
 .nagoyameshi-login-input:focus,
 .form-check-input:focus {
   border-color: #0fbe9f;

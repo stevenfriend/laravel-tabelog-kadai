@@ -42,7 +42,12 @@ class ReviewController extends Controller
             'content' => 'required'
         ]);
 
-        $review = new Review();
+        if ($request->input('method') === 'PUT') {
+            $review = Review::find($request->input('review_id'));
+        } else {
+            $review = new Review;
+        }
+
         $review->restaurant_id = $request->input('restaurant_id');
         $review->user_id = Auth::user()->id;
         $review->title = $request->input('title');

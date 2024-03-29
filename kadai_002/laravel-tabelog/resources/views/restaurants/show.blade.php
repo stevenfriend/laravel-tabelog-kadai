@@ -177,10 +177,25 @@
                     </div>
                     <p class="card-text fs-6">{{ $review->content }}</p>
                     <div class="d-flex justify-content-between w-100">
-                        <p class="card-text"><small class="text-body-secondary">{{ date("Y年m月d日", strtotime($review->created_at)); }} にレビュー済み</small></p>
+                        <div class="d-flex flex-column">
+                            @if($review->created_at == $review->updated_at)
+                            <p class="card-text"><small class="text-body-secondary">{{ date("Y年m月d日", strtotime($review->created_at)); }} にレビュー済み</small></p>
+                            @else
+                            <p class="card-text">
+                                <small class="text-body-secondary">{{ date("Y年m月d日", strtotime($review->created_at)); }} にレビュー済み</small><br>
+                                <small class="text-body-secondary">({{ date("Y年m月d日", strtotime($review->updated_at)); }} にレビュー編集)</small>
+                            </p>
+                            @endif
+                        </div>
                         @if($subscribed && auth()->user()->id === $review->user_id)
-                        <form class="d-flex justify-content-end m-0" action="{{ route('reviews.destroy', ['review' => $review->id]) }}" method="POST">
-                            <a href="#" class="btn btn-primary nagoyameshi-button ms-1">編集</a>
+                        <form class="d-flex justify-content-end m-1" action="{{ route('reviews.destroy', ['review' => $review->id]) }}" method="POST">
+                            <a href="" class="btn btn-primary nagoyameshi-button ms-1 edit-review-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#reviewModal"
+                                data-review-id="{{ $review->id }}"
+                                data-review-title="{{ $review->title }}"
+                                data-review-content="{{ $review->content }}"
+                                data-review-rating="{{ $review->rating }}">編集</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger ms-1">削除</button>
@@ -204,4 +219,50 @@
 <!-- レビューモーダル -->
 @include('modals.review')
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.edit-review-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const reviewId = this.getAttribute('data-review-id');
+            const title = this.getAttribute('data-review-title');
+            const content = this.getAttribute('data-review-content');
+            const rating = this.getAttribute('data-review-rating');
+            const stars = document.querySelectorAll('.star-rating .fa-star');
+
+            document.getElementById('review-id').value = reviewId;
+            document.getElementById('title').value = title;
+            document.getElementById('content').value = content;
+            document.getElementById('ratingInput').value = rating;
+            document.getElementById('form-method').value = 'PUT';
+            document.getElementById('review-form-btn').innerHTML = '編集する';
+
+            stars.forEach((star, i) => {
+                star.classList.remove('fas', 'fa-star-half-alt');
+                star.classList.add('far');
+                if (i + 1 <= rating) {
+                    star.classList.add('fas');
+                } else if (i + 0.5 == rating) {
+                    star.classList.add('fas', 'fa-star-half-alt');
+                }
+            });
+        });
+    });
+
+    document.getElementById('reviewModal').addEventListener('hidden.bs.modal', function () {
+        const stars = document.querySelectorAll('.star-rating .fa-star');
+
+        document.getElementById('review').reset();
+        document.getElementById('review').setAttribute('action', "{{ route('reviews.store') }}");
+        document.getElementById('form-method').value = 'POST';
+        document.getElementById('review-id').value = '';
+
+        stars.forEach((star, i) => {
+            star.classList.remove('fas', 'fa-star-half-alt');
+        });
+    });
+});
+</script>
+
 @endsection
+
+

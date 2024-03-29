@@ -9,6 +9,8 @@
         <div class="modal-body">
             <form id="review" method="POST" action="{{ route('reviews.store') }}">
                 @csrf
+                <input type="hidden" name="method" id="form-method" value="POST">
+                <input type="hidden" name="review_id" id="review-id" value="">
                 <input type="hidden" name="restaurant_id" value="{{$restaurant->id}}">
                 <!-- 評価 -->
                 <div class="mb-3">
@@ -22,21 +24,22 @@
                 <!-- タイトル -->
                 <div class="mb-3">
                     <label for="title" class="form-label">タイトル</label>
-                    <input class="form-control" id="title" name="title" type="text" required>
+                    <input class="form-control nagoyameshi-review-input" id="title" name="title" type="text" required>
                 </div>
                 
                 <!-- 内容 -->
                 <div class="mb-3">
                     <label for="content" class="form-label">レビュー</label>
-                    <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                    <textarea class="form-control nagoyameshi-review-input" id="content" name="content" rows="3" required></textarea>
                 </div>
             </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-            <button type="submit" class="btn btn-primary nagoyameshi-button" form="review">投稿する</button>
+            <button type="submit" class="btn btn-primary nagoyameshi-button" id="review-form-btn" form="review">投稿する</button>
         </div>
         </div>
     </div>
 </div>
 @endauth
+

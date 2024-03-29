@@ -46,10 +46,9 @@ class RestaurantController extends Controller
         }
     
         $restaurants = $query->paginate(5);
-        $total_count = $query->count();
         $category = $request->filled('category') ? Category::find($request->category) : null;
     
-        return view('restaurants.index', compact('restaurants', 'category', 'total_count'));
+        return view('restaurants.index', compact('restaurants', 'category'));
     }
 
     /**
