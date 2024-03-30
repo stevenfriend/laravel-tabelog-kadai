@@ -13,7 +13,7 @@ class WebController extends Controller
             return Restaurant::with('reviews')->withAvg('reviews', 'rating')->withCount('reviews');
         };
 
-        $recommended_restaurants = $getAllRestaurants()->take(6)->get();
+        $recommended_restaurants = $getAllRestaurants()->where('recommend_flag', true)->take(6)->get();
         $ranked_restaurants = $getAllRestaurants()->orderBy('reviews_avg_rating', 'desc')->take(6)->get();
         $newest_restaurants  = $getAllRestaurants()->orderBy('created_at', 'desc')->take(6)->get();
 

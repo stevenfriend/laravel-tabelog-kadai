@@ -6,7 +6,7 @@
     $subscribed = auth()->check() && auth()->user()->subscribed('premium_plan');
 @endphp
 
-<div class="d-flex flex-column align-items-center justify-content-center mx-auto" id="main-container">
+<div class="d-flex flex-column align-items-center justify-content-center mx-auto p-3" id="main-container">
 
     <nav class="my-3 me-auto" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
@@ -16,7 +16,7 @@
         </ol>
     </nav>
 
-    <div class="d-flex flex-column align-items-center justify-content-center bg-white mx-auto p-4 rounded" id="restaurant-main-container">
+    <div class="d-flex flex-column align-items-center justify-content-center bg-white mx-auto p-3 rounded" id="restaurant-main-container">
         <div>
             <div id="restaurant-carousel" class="carousel slide mb-4">
                 <!-- <div class="carousel-indicators">

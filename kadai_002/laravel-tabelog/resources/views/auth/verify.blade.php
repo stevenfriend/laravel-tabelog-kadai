@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-5">
-            <h3 class="text-center">会員登録ありがとうございます！</h3>
+            <h2 class="text-center">会員登録ありがとうございます！</h2>
 
             <p class="text-center">
                 現在、仮会員の状態です。
@@ -19,7 +19,7 @@
                 メール本文内のURLをクリックすると本会員登録が完了となります。  
             </p>
             <div class="text-center">
-                <a href="{{ url('/') }}" class="btn nagoyameshi-submit-button w-50 text-white">トップページへ</a>
+                <a href="{{ url('/') }}" class="btn nagoyameshi-button w-50">トップページへ</a>
             </div>
         </div>
     </div>

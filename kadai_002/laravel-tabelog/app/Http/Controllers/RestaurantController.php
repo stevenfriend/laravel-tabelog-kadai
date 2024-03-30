@@ -42,6 +42,7 @@ class RestaurantController extends Controller
                 $query->orderBy('created_at', 'desc');
                 break;
             default:
+                $query->orderBy('recommend_flag', 'desc');
                 break;
         }
     
