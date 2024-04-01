@@ -11,7 +11,7 @@
     </ol>
 </nav>
 
-<div class="d-flex flex-column align-items-center justify-content-center bg-white mx-auto p-3 rounded">
+<div class="d-flex flex-column align-items-center justify-content-center bg-white mx-auto p-3 w-100 rounded">
     <div class="d-flex justify-content-between align-items-center w-100 mb-3">
     @if ($category == null)
         <div>
@@ -38,7 +38,11 @@
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-sm-4 img-container">
-                <img src="{{ asset('img/dummy.png')}}" class="img-fluid rounded-start d-sm-rounded" alt="...">
+                @if(isset($restaurant->images) && $restaurant->images->isNotEmpty())
+                    <img src="{{ $restaurant->images[0]->file_path }}" class="card-img-top top-page-card-img" alt="{{ $restaurant->images[0]->description }}">
+                @else
+                    <img src="{{ asset('img/nophoto.png') }}" class="card-img-top top-page-card-img" alt="画像なし">
+                @endif
                 </div>
                 <div class="col-sm-8 card-body">
                     <div class="d-flex justify-content-between align-items-center">

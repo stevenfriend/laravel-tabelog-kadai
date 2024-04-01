@@ -10,7 +10,7 @@ class WebController extends Controller
     public function index()
     {
         $getAllRestaurants = function () {
-            return Restaurant::with('reviews')->withAvg('reviews', 'rating')->withCount('reviews');
+            return Restaurant::with('reviews')->withAvg('reviews', 'rating')->withCount('reviews')->with('images');
         };
 
         $recommended_restaurants = $getAllRestaurants()->where('recommend_flag', true)->take(6)->get();

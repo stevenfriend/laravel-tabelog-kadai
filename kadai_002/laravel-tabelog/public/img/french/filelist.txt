@@ -1,0 +1,11 @@
+filelist.txt
+french_1.jpeg
+french_10.jpeg
+french_2.jpeg
+french_3.jpeg
+french_4.jpeg
+french_5.jpeg
+french_6.jpeg
+french_7.jpeg
+french_8.jpeg
+french_9.jpeg

@@ -23,7 +23,11 @@
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="{{ route('restaurants.show', $restaurant) }}" class="restaurant-card">
                         <div class="card h-100">
-                            <img src="{{ asset('img/dummy.png') }}" class="card-img-top" alt="...">
+                            @if(isset($restaurant->images) && $restaurant->images->isNotEmpty())
+                            <img src="{{ $restaurant->images[0]->file_path }}" class="card-img-top top-page-card-img" alt="{{ $restaurant->images[0]->description }}">
+                            @else
+                            <img src="{{ asset('img/nophoto.png') }}" class="card-img-top top-page-card-img" alt="画像なし">
+                            @endif
                             <div class="card-body p-3">
                                 <h5 class="card-title">{{ $restaurant->name }}</h5>
                                 <p class="card-text text-body-secondary m-0">{{ $restaurant->category->name }}</p>
@@ -62,7 +66,11 @@
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="{{ route('restaurants.show', $restaurant) }}" class="restaurant-card">
                         <div class="card h-100">
-                            <img src="{{ asset('img/dummy.png') }}" class="card-img-top" alt="...">
+                            @if(isset($restaurant->images) && $restaurant->images->isNotEmpty())
+                            <img src="{{ $restaurant->images[0]->file_path }}" class="card-img-top top-page-card-img" alt="{{ $restaurant->images[0]->description }}">
+                            @else
+                            <img src="{{ asset('img/nophoto.png') }}" class="card-img-top top-page-card-img" alt="画像なし">
+                            @endif
                             <div class="card-body p-3">
                                 <h5 class="card-title">{{ $restaurant->name }}</h5>
                                 <p class="card-text text-body-secondary m-0">{{ $restaurant->category->name }}</p>
@@ -101,7 +109,11 @@
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="{{ route('restaurants.show', $restaurant) }}" class="restaurant-card">
                         <div class="card h-100">
-                            <img src="{{ asset('img/dummy.png') }}" class="card-img-top" alt="...">
+                        @if(isset($restaurant->images) && $restaurant->images->isNotEmpty())
+                            <img src="{{ $restaurant->images[0]->file_path }}" class="card-img-top top-page-card-img" alt="{{ $restaurant->images[0]->description }}">
+                        @else
+                            <img src="{{ asset('img/nophoto.png') }}" class="card-img-top top-page-card-img" alt="画像なし">
+                        @endif
                             <div class="card-body p-3">
                                 <h5 class="card-title">{{ $restaurant->name }}</h5>
                                 <p class="card-text text-body-secondary m-0">{{ $restaurant->category->name }}</p>

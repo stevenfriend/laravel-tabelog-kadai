@@ -25,7 +25,7 @@ return new class extends Migration
             $table->time('closing_time');
             $table->string('days_closed')->nullable();
             $table->integer('seating_capacity');
-            $table->string('image')->nullable();
+            $table->boolean('recommend_flag')->default(false);
             $table->timestamps();
         });
     }

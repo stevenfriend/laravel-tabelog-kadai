@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Restaurant;
 use App\Models\Category;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,7 @@ class RestaurantController extends Controller
     public function index(Request $request)
     {
         $query = Restaurant::with('reviews')->withAvg('reviews', 'rating')->withCount('reviews')
-                    ->with('category');
+                    ->with('category')->with('images');
     
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);

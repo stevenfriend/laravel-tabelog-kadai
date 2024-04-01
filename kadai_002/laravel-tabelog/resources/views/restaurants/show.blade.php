@@ -16,30 +16,27 @@
         </ol>
     </nav>
 
-    <div class="d-flex flex-column align-items-center justify-content-center bg-white mx-auto p-3 rounded" id="restaurant-main-container">
+    <div class="d-flex flex-column align-items-center justify-content-center bg-white mx-auto p-3 rounded">
         <div>
+            @if(isset($restaurant->images) && $restaurant->images->count() > 1)
             <div id="restaurant-carousel" class="carousel slide mb-4">
-                <!-- <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#restaurant-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#restaurant-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#restaurant-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div> -->
+                <div class="carousel-indicators">
+                    @foreach($restaurant->images as $image)
+                    <button type="button"
+                        data-bs-target="#restaurant-carousel"
+                        data-bs-slide-to="{{ $loop->index }}"
+                        class="{{ $loop->index === 0 ? 'active' : ''}}"
+                        aria-current="{{ $loop->index === 0 ? 'true' : 'false'}}"
+                        aria-label="Slide {{ $loop->index + 1 }}">
+                    </button>
+                    @endforeach
+                </div>
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                    <img src="{{ asset('img/dummy1.png')}}" class="carousel-img img-fluid" alt="...">
+                    @foreach($restaurant->images as $image)
+                    <div class="carousel-item {{ $loop->index === 0 ? 'active' : ''}}">
+                        <img src="{{ asset($image->file_path) }}" class="carousel-img" alt="{{ $image->description }}">
                     </div>
-                    <div class="carousel-item">
-                    <img src="{{ asset('img/dummy2.png')}}" class="carousel-img img-fluid" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                    <img src="{{ asset('img/dummy3.jpeg')}}" class="carousel-img img-fluid" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                    <img src="{{ asset('img/dummy4.jpg')}}" class="carousel-img img-fluid;" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                    <img src="{{ asset('img/dummy5.jpg')}}" class="carousel-img img-fluid" alt="...">
-                    </div>
+                    @endforeach
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#restaurant-carousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -50,6 +47,11 @@
                     <span class="visually-hidden">次へ</span>
                 </button>
             </div>
+            @elseif($restaurant->images->count() == 1)
+            <div class="cover-inner mb-4">
+                <img src="{{ $restaurant->images[0]->file_path }}" class="cover-img" alt="{{ $restaurant->images[0]->description }}">
+            </div>
+            @endif
 
             <div class="mb-5">
                 <h1>{{ $restaurant->name }}</h2>
