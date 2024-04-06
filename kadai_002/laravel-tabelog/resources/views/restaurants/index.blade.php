@@ -80,6 +80,6 @@
         </div>
     </a>
     @endforeach
-    {{ $restaurants->links() }}
+    {{ $restaurants->appends(['sort_by' => request('sort_by'), 'category' => request('category')])->links() }}
 </div>
 @endsection

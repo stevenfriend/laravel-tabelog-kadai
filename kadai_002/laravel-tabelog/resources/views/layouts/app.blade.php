@@ -14,7 +14,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss'])
     <script src="https://kit.fontawesome.com/c033090427.js" crossorigin="anonymous"></script>
 
     <!-- Styles -->
@@ -35,5 +35,10 @@
 
     <!-- Scripts Stack -->
     @stack('scripts')
+
+    <!-- @vite(['resources/js/app.js']) -->
+    
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

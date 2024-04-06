@@ -8,6 +8,22 @@
 
 <div class="d-flex flex-column align-items-center justify-content-center mx-auto p-3" id="main-container">
 
+    @php
+    // 成功メッセージの種類を定義
+    $successMessages = ['review_edit_success', 'review_post_success', 'review_delete_success', 'reservation_success'];
+    @endphp
+
+    {{-- 成功メッセージを表示 --}}
+    @foreach ($successMessages as $successMessage)
+        @if (session($successMessage))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session($successMessage) }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @break
+        @endif
+    @endforeach
+
     <nav class="my-3 me-auto" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="{{ route('home') }}">ホーム</a></li>
@@ -223,6 +239,16 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+
+    if (@json($errors->getBag('review')->any())) {
+        var reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
+        reviewModal.show();
+    }
+
+    if (@json($errors->getBag('reservation')->any())) {
+        var reservationModal = new bootstrap.Modal(document.getElementById('reservationModal'));
+        reservationModal.show();
+    }
     document.querySelectorAll('.edit-review-btn').forEach(button => {
         button.addEventListener('click', function() {
             const reviewId = this.getAttribute('data-review-id');
@@ -265,6 +291,20 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+@if($errors->any())
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (@json($errors->getBag('review')->any())) {
+        const reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
+        reviewModal.show();
+    }
+
+    if (@json($errors->getBag('reservation')->any())) {
+        const reservationModal = new bootstrap.Modal(document.getElementById('reservationModal'));
+        reservationModal.show();
+    }
+});
+</script>
+@endif
+
 @endsection
-
-
