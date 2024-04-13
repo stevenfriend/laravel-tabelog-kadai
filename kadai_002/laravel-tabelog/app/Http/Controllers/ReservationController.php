@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Reservation;
 use App\Models\Restaurant;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -18,9 +19,13 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = reservation::with('restaurant')->where('user_id', Auth::user()->id)->paginate(15);
+        $reservations = Reservation::with('restaurant')
+                    ->where('user_id', Auth::user()->id)
+                    // 日付と時間を組み合わせて日時で並び替える
+                    ->orderByRaw('CONCAT(reservation_date, " ", reservation_time) DESC')
+                    ->paginate(15);
 
-        return view('reservations.index', compact('reservations'));
+        return view('users.reservation', compact('reservations'));
     }
 
     /**
@@ -128,8 +133,6 @@ class ReservationController extends Controller
         $reservation->number_of_people = $request->input('number_of_people');
         $reservation->restaurant_id = $request->input('restaurant_id');
         $reservation->user_id = Auth::user()->id;
-        
-        // 予約を保存
         $reservation->save();
     
         // 成功した場合、前のページにリダイレクト
@@ -178,6 +181,8 @@ class ReservationController extends Controller
      */
     public function destroy(Reservation $reservation)
     {
-        //
+        $reservation->delete();
+
+        return redirect()->back()->with('reservation_delete_success', '予約が正常に削除されました。');
     }
 }

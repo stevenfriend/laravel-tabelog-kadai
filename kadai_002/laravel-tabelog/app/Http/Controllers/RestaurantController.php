@@ -47,7 +47,7 @@ class RestaurantController extends Controller
                 break;
         }
     
-        $restaurants = $query->paginate(5);
+        $restaurants = $query->paginate(15);
         $category = $request->filled('category') ? Category::find($request->category) : null;
     
         return view('restaurants.index', compact('restaurants', 'category'));

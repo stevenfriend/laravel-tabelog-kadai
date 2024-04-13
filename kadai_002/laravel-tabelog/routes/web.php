@@ -23,14 +23,13 @@ Route::get('/',  [WebController::class, 'index'])->name('top');
 Route::get('/home', [WebController::class, 'index'])->name('home');
 
 Route::controller(ReservationController::class)->group(function () {
-    Route::get('/reservations', 'index')->name('reservations.index')->middleware(['auth', 'verified']);
+    Route::get('users/mypage/reservation', 'index')->name('mypage.reservation')->middleware(['auth', 'verified']);
 });
 
 Route::controller(UserController::class)->group(function () {
     Route::get('users/mypage', 'mypage')->name('mypage');
     Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
     Route::put('users/mypage', 'update')->name('mypage.update');
-    Route::get('users/mypage/reservation', 'reservation')->name('mypage.reservation');
     Route::get('users/mypage/favorite', 'favorite')->name('mypage.favorite');
     Route::get('users/mypage/password/edit', 'edit_password')->name('mypage.edit_password');
     Route::put('users/mypage/password', 'update_password')->name('mypage.update_password');
@@ -49,6 +48,7 @@ Route::post('reviews', [ReviewController::class, 'store'])->name('reviews.store'
 Route::delete('reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
 Route::post('reservations', [ReservationController::class, 'store'])->name('reservations.store');
+Route::delete('reservations/{reservation}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
 
 Route::get('restaurants/{restaurant}/favorite', [RestaurantController::class, 'favorite'])->name('restaurants.favorite');
 Route::resource('restaurants', RestaurantController::class);

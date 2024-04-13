@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -41,7 +43,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Validator for an incoming registration request.
      *
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
@@ -50,10 +52,22 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'furigana' => ['required', 'regex:/^[\p{Katakana}ー]+$/u'],
+            'furigana' => ['required', 'regex:/^[\p{Katakana}ー\x{0020}\x{3000}]+$/u'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'telephone' => ['required', 'string', 'regex:/^\+?\d{2,3}-?\d{4}-?\d{4}$/'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'name.required' => '名前は必須です。',
+            'furigana.required' => 'フリガナは必須です。',
+            'furigana.regex' => 'フリガナはカタカナで入力してください。',
+            'email.required' => 'メールアドレスは必須です。',
+            'email.email' => '有効なメールアドレスを入力してください。',
+            'email.unique' => 'このメールアドレスは既に使用されています。',
+            'telephone.required' => '電話番号は必須です。',
+            'telephone.regex' => '有効な電話番号を入力してください。',
+            'password.required' => 'パスワードは必須です。',
+            'password.min' => 'パスワードは8文字以上である必要があります。',
+            'password.confirmed' => 'パスワードが一致しません。',
         ]);
     }
 

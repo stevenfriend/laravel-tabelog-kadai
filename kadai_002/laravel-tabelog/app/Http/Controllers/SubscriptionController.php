@@ -29,8 +29,7 @@ class SubscriptionController extends Controller
     {
         Auth::user()->newSubscription('premium_plan', 'price_1OvrWxGpme5m4IYbWTA212da')->create($request->paymentMethodId);
 
-        session()->flash('flash_message', '有料プランへの登録が完了しました。');
-        return redirect()->route('home');
+        return redirect()->route('mypage')->with('subscription_success', '有料プランへのご登録、誠にありがとうございます。');
     }
 
     /**
@@ -56,8 +55,7 @@ class SubscriptionController extends Controller
     {
         Auth::user()->updateDefaultPaymentMethod($paymentMethod);
 
-        session()->flash('flash_message', 'お支払い方法を変更しました。');
-        return redirect()->route('home');
+        return redirect()->route('mypage')->with('subscription_payment_method', 'お支払い方法を正常に変更しました。');
     }
 
     /**
@@ -79,7 +77,6 @@ class SubscriptionController extends Controller
     {
         Auth::user()->subscription('premium_plan')->cancelNow();
 
-        session()->flash('flash_message', '有料プランを解約しました。');
-        return redirect()->route('home');
+        return redirect()->route('mypage')->with('subscription_cancelation', '有料プランを解約しました。');
     }
 }

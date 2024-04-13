@@ -9,15 +9,15 @@
 <div class="d-flex flex-column align-items-center justify-content-center mx-auto p-3" id="main-container">
 
     @php
-    // 成功メッセージの種類を定義
-    $successMessages = ['review_edit_success', 'review_post_success', 'review_delete_success', 'reservation_success'];
+    // セッションメッセージの種類を定義
+    $sessionMessages = ['review_edit_success', 'review_post_success', 'review_delete_success', 'reservation_success'];
     @endphp
 
-    {{-- 成功メッセージを表示 --}}
-    @foreach ($successMessages as $successMessage)
-        @if (session($successMessage))
+    <!-- セッションメッセージを表示 -->
+    @foreach ($sessionMessages as $sessionMessage)
+        @if (session($sessionMessage))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session($successMessage) }}
+            {{ session($sessionMessage) }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @break
@@ -106,16 +106,16 @@
                     @if($subscribed)
                         @if($restaurant->isFavoritedBy(Auth::user()))
                         <a href="{{ route('restaurants.favorite', $restaurant) }}" class="btn nagoyameshi-button text-favorite w-100">
-                            <i class="fa fa-heart"></i>お気に入り解除
+                            <i class="fa fa-heart"></i> お気に入り解除
                         </a>
                         @else
                         <a href="{{ route('restaurants.favorite', $restaurant) }}" class="btn btn-secondary w-100">
-                            <i class="fa fa-heart"></i>お気に入り
+                            <i class="fa fa-heart"></i> お気に入り
                         </a>
                         @endif
                     @else
                         <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#promotionModal">
-                            <i class="fa fa-heart" ></i>お気に入り
+                            <i class="fa fa-heart" ></i> お気に入り
                         </button>
                     @endif
                     </div>

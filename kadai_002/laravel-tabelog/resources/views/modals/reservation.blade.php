@@ -1,7 +1,7 @@
 @auth
 <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-white">
         <div class="modal-header">
             <h5 class="modal-title" id="reservationModalLabel">{{$restaurant->name}}の予約</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -10,10 +10,11 @@
             <form id="reservation" method="POST" action="{{ route('reservations.store') }}">
                 @csrf
                 <input type="hidden" name="restaurant_id" value="{{ $restaurant->id }}">
+                
                 <!-- 日付ピッカー -->
                 <div class="mb-3">
                     <label for="reservation_date" class="form-label">日付</label>
-                    <input type="date" class="form-control" id="reservation_date" name="reservation_date" value="{{ old('reservation_date') }}" required>
+                    <input type="date" class="form-control nagoyameshi-input" id="reservation_date" name="reservation_date" value="{{ old('reservation_date') }}" required>
                     @error('reservation_date', 'reservation')
                     <span class="invalid-feedback d-block" role="alert">
                         <strong>{{ $message }}</strong>
@@ -24,7 +25,7 @@
                 <!-- 時間選択 -->
                 <div class="mb-3">
                     <label for="reservation_time" class="form-label">時間</label>
-                    <select class="form-select" id="reservation_time" name="reservation_time" required>
+                    <select class="form-select nagoyameshi-input" id="reservation_time" name="reservation_time" required>
                         <option disabled selected>選択...</option>
                         @php
                             $start = strtotime($restaurant->opening_time);
@@ -44,7 +45,7 @@
                 <!-- 人数選択 -->
                 <div class="mb-3">
                     <label for="number_of_people" class="form-label">人数</label>
-                    <input type="number" class="form-control" id="number_of_people" name="number_of_people" required min="1" max="{{$restaurant->seating_capacity}}" value="{{ old('number_of_people', 1) }}">
+                    <input type="number" class="form-control nagoyameshi-input" id="number_of_people" name="number_of_people" required min="1" max="{{$restaurant->seating_capacity}}" value="{{ old('number_of_people', 1) }}">
                     @error('number_of_people', 'reservation')
                     <span class="invalid-feedback d-block" role="alert">
                         <strong>{{ $message }}</strong>

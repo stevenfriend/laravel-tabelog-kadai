@@ -6,7 +6,9 @@ use App\Models\User;
 use App\Models\Restaurant;
 use App\Models\Reservation;
 use App\Models\Category;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -42,12 +44,34 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user = Auth::user();
-
-        $user->name = $request->input('name') ? $request->input('name') : $user->name;
-        $user->email = $request->input('email') ? $request->input('email') : $user->email;
+    
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'furigana' => ['required', 'regex:/^[\p{Katakana}ー\x{0020}\x{3000}]+$/u'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
+            'telephone' => ['required', 'string', 'regex:/^\+?\d{2,3}-?\d{4}-?\d{4}$/'],
+        ], [
+            'name.required' => '名前は必須です。',
+            'furigana.required' => 'フリガナは必須です。',
+            'furigana.regex' => 'フリガナはカタカナで入力してください。',
+            'email.required' => 'メールアドレスは必須です。',
+            'email.email' => '有効なメールアドレスを入力してください。',
+            'email.unique' => 'このメールアドレスは既に使用されています。',
+            'telephone.required' => '電話番号は必須です。',
+            'telephone.regex' => '有効な電話番号を入力してください。',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        $user->name = $request->input('name');
+        $user->furigana = $request->input('furigana');
+        $user->email = $request->input('email');
+        $user->telephone = $request->input('telephone');
         $user->update();
-
-        return to_route('mypage');
+    
+        return redirect()->route('mypage')->with('edit_user_success', '会員情報が正常に編集されました。');
     }
 
     /**
@@ -68,35 +92,44 @@ class UserController extends Controller
 
     public function update_password(Request $request)
     {
-        $validatedData = $request->validate([
-            'password' => 'required|confirmed',
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
         ]);
-
+    
         $user = Auth::user();
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
 
-        if ($request->input('password') == $request->input('password_confirmation')) {
-            $user->password = bcrypt($request->input('password'));
-            $user->update();
-        } else {
-            return to_route('mypage.edit_password');
-        }
-
-        return to_route('mypage');
+        return redirect()->route('mypage')->with('change_password_success', 'パスワードが正常に変更されました。');
     }
 
     public function favorite()
     {
         $user = Auth::user();
-
-        $favorites = $user->favorites(Restaurant::class)->get();
-
+    
+        $favorites = $user->favorites(Restaurant::class)->with([
+            'favoriteable' => function ($query) {
+                $query->select(['id', 'name', 'description', 'category_id'])
+                      ->with(['category' => function ($query) {
+                          $query->select(['id', 'name']);
+                      },
+                      'images' => function ($query) {
+                          $query->select(['id', 'restaurant_id', 'file_path', 'description']);
+                      },
+                      'reviews' => function ($query) {
+                          $query->select('restaurant_id', 'rating');
+                      }]);
+            }
+        ])->paginate(15);;
+    
+        foreach ($favorites as $favorite) {
+            if (isset($favorite->favoriteable)) {
+                $restaurant = $favorite->favoriteable;
+                $restaurant->reviews_avg_rating = $restaurant->reviews->avg('rating');
+                $restaurant->reviews_count = $restaurant->reviews->count();
+            }
+        }
+    
         return view('users.favorite', compact('favorites'));
-    }
-
-    public function reservation()
-    {
-        $reservations = Reservation::with('restaurant')->where('user_id', Auth::user()->id)->paginate(15);
-
-        return view('users.reservation', compact('reservations'));
     }
 }

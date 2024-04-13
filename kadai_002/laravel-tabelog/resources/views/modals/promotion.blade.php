@@ -1,6 +1,6 @@
 <div class="modal fade" id="promotionModal" tabindex="-1" aria-labelledby="promotionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-white">
         <div class="modal-header">
             <h2 class="modal-title" id="promotionModalLabel">有料会員になりませんか？</h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>

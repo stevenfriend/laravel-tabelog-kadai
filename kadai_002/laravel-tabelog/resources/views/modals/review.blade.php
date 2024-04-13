@@ -1,7 +1,7 @@
 @auth
 <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-white">
         <div class="modal-header">
             <h5 class="modal-title" id="reviewModalLabel">{{$restaurant->name}}のレビュー</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -32,7 +32,7 @@
                 <!-- タイトル -->
                 <div class="mb-3">
                     <label for="title" class="form-label">タイトル</label>
-                    <input class="form-control nagoyameshi-review-input" id="title" name="title" type="text" value="{{ old('title') }}" required>
+                    <input class="form-control nagoyameshi-input" id="title" name="title" type="text" value="{{ old('title') }}" required>
                     @error('title', 'review')
                     <span class="invalid-feedback d-block" role="alert">
                         <strong>{{ $message }}</strong>
@@ -43,7 +43,7 @@
                 <!-- 内容 -->
                 <div class="mb-3">
                     <label for="content" class="form-label">レビュー</label>
-                    <textarea class="form-control nagoyameshi-review-input" id="content" name="content" rows="3" required>{{ old('content') }}</textarea>
+                    <textarea class="form-control nagoyameshi-input" id="content" name="content" rows="3" required>{{ old('content') }}</textarea>
                     @error('content', 'review')
                     <span class="invalid-feedback d-block" role="alert">
                         <strong>{{ $message }}</strong>
