@@ -134,7 +134,31 @@
                         </tr>
                         <tr>
                         <th scope="row" style="width: 100px;">定休日</th>
-                        <td>{{ $restaurant->days_closed }}</td>
+                        @php
+                            $days = json_decode($restaurant->days_closed);
+
+                            if (is_null($days) || empty($days)) {
+                                $daysClosed = 'なし';
+                            } else {
+                                // Map of English day names to Japanese.
+                                $daysMap = [
+                                    "Sunday" => "日曜日",
+                                    "Monday" => "月曜日",
+                                    "Tuesday" => "火曜日",
+                                    "Wednesday" => "水曜日",
+                                    "Thursday" => "木曜日",
+                                    "Friday" => "金曜日",
+                                    "Saturday" => "土曜日"
+                                ];
+
+                                $japaneseDays = array_map(function($day) use ($daysMap) {
+                                    return $daysMap[$day];
+                                }, $days);
+
+                                $daysClosed = implode('、', $japaneseDays);
+                            }
+                        @endphp
+                        <td>{{ $daysClosed }}</td>
                         </tr>
                         <tr>
                         <th scope="row" style="width: 100px;">座席数</th>

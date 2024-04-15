@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Reservation;
 use App\Models\Restaurant;
-use App\Models\Image;
+use App\Models\AppImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -102,7 +102,7 @@ class ReservationController extends Controller
         // 店舗の情報を取得
         $restaurant = Restaurant::findOrFail($request->input('restaurant_id'));
         // 定休日を配列に変換
-        $daysClosed = explode(',', $restaurant->days_closed);
+        $daysClosed = json_decode($restaurant->days_closed);
     
         // 予約日の曜日を取得
         $reservationDayOfWeek = Carbon::parse($request->input('reservation_date'))->format('l');
@@ -122,7 +122,7 @@ class ReservationController extends Controller
         $japaneseDayOfWeek = $daysOfWeekInJapanese[$reservationDayOfWeek];
     
         // 予約日が店舗の定休日かどうかチェック
-        if (in_array($japaneseDayOfWeek, $daysClosed)) {
+        if (in_array($reservationDayOfWeek, $daysClosed)) {
             return back()->withErrors(['reservation_date' => "{$japaneseDayOfWeek}曜日は定休日です。"], 'reservation')->withInput();
         }
     

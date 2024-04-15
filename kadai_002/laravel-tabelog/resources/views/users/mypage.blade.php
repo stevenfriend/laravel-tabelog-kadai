@@ -37,7 +37,6 @@
         <div class="w-75">
 
             <h1 class="my-3 text-center">マイページ</h1>
-            <hr>
 
             <!-- 会員情報の編集 -->
             <a class="w-100" href="{{ route('mypage.edit') }}">

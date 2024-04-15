@@ -2,7 +2,7 @@
 
     <div class="container d-flex justify-content-between align-items-center w-100">
         <div>
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand m-0" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
             </a>
         </div>
@@ -22,21 +22,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Right Side Of Navbar -->
         <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mr-5 mt-2">
-                <!-- Authentication Links -->
+            <ul class="navbar-nav text-center mt-2">
                 @guest
-                <li class="nav-item mr-5">
-                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}"><b>{{ __('Register') }}</b></a>
                 </li>
-                <li class="nav-item mr-5">
-                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}"><b>{{ __('Login') }}</b></a>
                 </li>
-                <hr>
                 @else
-                <li class="nav-item mr-5">
-                    <a class="nav-link" href="{{ route('mypage') }}"><label>マイページ</label></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('mypage') }}"><b>マイページ</b></a>
                 </li>
                 @endguest
             </ul>

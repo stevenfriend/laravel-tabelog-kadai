@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Restaurant;
 use App\Models\Category;
-use App\Models\Image;
+use App\Models\AppImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('restaurant_images', function (Blueprint $table) {
             $table->id();
             $table->foreignId('restaurant_id')->on('restaurants')->onDelete('cascade');
             $table->string('file_path');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('restaurant_images');
     }
 };
