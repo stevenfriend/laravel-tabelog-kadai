@@ -18,9 +18,11 @@ class RestaurantController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Restaurant::with('reviews')->withAvg('reviews', 'rating')->withCount('reviews')
-                    ->with('category')->with('images');
-    
+        $query = Restaurant::with('reviews')->withAvg('reviews', 'rating')
+                                            ->withCount('reviews')
+                                            ->with('category')
+                                            ->with('images');
+
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);
         }
@@ -54,33 +56,6 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('restaurants.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $restaurant = new restaurant();
-        $restaurant->name = $request->input('name');
-        $restaurant->description = $request->input('description');
-        $restaurant->category_id = $request->input('category_id');
-        $restaurant->save();
-
-        return to_route('restaurants.index');
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Restaurant  $restaurant
@@ -93,47 +68,6 @@ class RestaurantController extends Controller
         $reviews_count = $restaurant->reviews()->count();
 
         return view('restaurants.show', compact('restaurant', 'rating', 'reviews', 'reviews_count'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Restaurant  $restaurant
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Restaurant $restaurant)
-    {
-        return view('restaurants.edit', compact('restaurant'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Restaurant  $restaurant
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Restaurant $restaurant)
-    {
-        $restaurant->name = $request->input('name');
-        $restaurant->description = $request->input('description');
-        $restaurant->category_id = $request->input('category_id');
-        $restaurant->update();
-
-        return to_route('restaurants.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Restaurant  $restaurant
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Restaurant $restaurant)
-    {
-        $restaurant->delete();
-  
-        return to_route('restaurants.index');
     }
 
     public function favorite(Restaurant $restaurant)

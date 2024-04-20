@@ -29,16 +29,6 @@ class ReservationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -95,14 +85,11 @@ class ReservationController extends Controller
     
         // バリデータが失敗した場合
         if ($validator->fails()) {
-            // 名前付きエラーバッグを使用してエラーをリダイレクト
             return back()->withErrors($validator, 'reservation')->withInput();
         }
     
         // 店舗の情報を取得
         $restaurant = Restaurant::findOrFail($request->input('restaurant_id'));
-        // 定休日を配列に変換
-        $daysClosed = json_decode($restaurant->days_closed);
     
         // 予約日の曜日を取得
         $reservationDayOfWeek = Carbon::parse($request->input('reservation_date'))->format('l');
@@ -122,7 +109,7 @@ class ReservationController extends Controller
         $japaneseDayOfWeek = $daysOfWeekInJapanese[$reservationDayOfWeek];
     
         // 予約日が店舗の定休日かどうかチェック
-        if (in_array($reservationDayOfWeek, $daysClosed)) {
+        if (in_array($japaneseDayOfWeek, $restaurant->days_closed)) {
             return back()->withErrors(['reservation_date' => "{$japaneseDayOfWeek}曜日は定休日です。"], 'reservation')->withInput();
         }
     
@@ -137,40 +124,6 @@ class ReservationController extends Controller
     
         // 成功した場合、前のページにリダイレクト
         return back()->with('reservation_success', 'ご予約ありがとうございます。お席を確保いたしました。');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Reservation  $reservation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Reservation  $reservation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Reservation  $reservation
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Reservation $reservation)
-    {
-        //
     }
 
     /**

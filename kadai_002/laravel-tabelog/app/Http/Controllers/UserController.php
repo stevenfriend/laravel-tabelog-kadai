@@ -120,7 +120,7 @@ class UserController extends Controller
                           $query->select('restaurant_id', 'rating');
                       }]);
             }
-        ])->paginate(15);;
+        ])->orderBy('created_at', 'desc')->paginate(15);
     
         foreach ($favorites as $favorite) {
             if (isset($favorite->favoriteable)) {

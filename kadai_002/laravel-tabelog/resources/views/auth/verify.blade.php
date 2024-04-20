@@ -2,24 +2,26 @@
 
 @section('content')
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <h2 class="text-center">会員登録ありがとうございます！</h2>
+<div class="d-flex flex-column align-items-center justify-content-center mx-auto p-3" id="main-container">
 
-            <p class="text-center">
-                現在、仮会員の状態です。
-            </p>
+    <!-- パンくずリスト -->
+    <nav class="my-3 me-auto" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">ホーム</a></li>
+            <li class="breadcrumb-item active" aria-current="page">メール確認通知</li>
+        </ol>
+    </nav>
 
-            <p class="text-center">
-                ただいま、ご入力いただいたメールアドレス宛に、ご本人様確認用のメールをお送りしました。  
-            </p>
-
-            <p class="text-center">
-                メール本文内のURLをクリックすると本会員登録が完了となります。  
-            </p>
-            <div class="text-center">
-                <a href="{{ url('/') }}" class="btn shadow-sm nagoyameshi-button w-50">トップページへ</a>
+    <!-- メール確認通知 -->
+    <div class="d-flex justify-content-center bg-white rounded w-100 p-3">
+        <div class="w-75">
+            <h1 class="my-3 text-center">会員登録ありがとうございます！</h1>
+            <hr class="pt-3">
+            <h5 class="text-center pb-3">現在、仮会員の状態です。</h5>
+            <h5 class="text-center pb-3">ただいま、ご入力いただいたメールアドレス宛に、ご本人様確認用のメールをお送りしました。</h5>
+            <h5 class="text-center pb-3">メール本文内のURLをクリックすると本会員登録が完了となります。</h5>
+            <div class="text-center pb-3">
+                <a href="{{ route('home') }}" class="btn shadow-sm nagoyameshi-button w-50">ホームページへ</a>
             </div>
         </div>
     </div>

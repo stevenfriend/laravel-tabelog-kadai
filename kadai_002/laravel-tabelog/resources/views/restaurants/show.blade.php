@@ -8,8 +8,8 @@
 
 <div class="d-flex flex-column align-items-center justify-content-center mx-auto p-3" id="main-container">
 
+    <!-- セッションメッセージの種類を定義 -->
     @php
-    // セッションメッセージの種類を定義
     $sessionMessages = ['review_edit_success', 'review_post_success', 'review_delete_success', 'reservation_success'];
     @endphp
 
@@ -24,6 +24,7 @@
         @endif
     @endforeach
 
+    <!-- パンくずリスト -->
     <nav class="my-3 me-auto" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="{{ route('home') }}">ホーム</a></li>
@@ -32,8 +33,9 @@
         </ol>
     </nav>
 
-    <div class="d-flex flex-column align-items-center justify-content-center bg-white mx-auto p-3 rounded">
-        <div>
+    <!-- 店舗の情報 -->
+    <div class="d-flex flex-column align-items-center justify-content-center bg-white mx-auto p-3 rounded w-100">
+        <div class="w-100">
             @if(isset($restaurant->images) && $restaurant->images->count() > 1)
             <div id="restaurant-carousel" class="carousel slide mb-4">
                 <div class="carousel-indicators">
@@ -65,7 +67,7 @@
             </div>
             @elseif($restaurant->images->count() == 1)
             <div class="cover-inner mb-4">
-                <img src="{{ $restaurant->images[0]->file_path }}" class="cover-img" alt="{{ $restaurant->images[0]->description }}">
+                <img src="{{ asset($restaurant->images[0]->file_path) }}" class="cover-img" alt="{{ asset($restaurant->images[0]->description) }}">
             </div>
             @endif
 
@@ -135,27 +137,14 @@
                         <tr>
                         <th scope="row" style="width: 100px;">定休日</th>
                         @php
-                            $days = json_decode($restaurant->days_closed);
-
-                            if (is_null($days) || empty($days)) {
+                            if (is_null($restaurant->days_closed) || empty($restaurant->days_closed)) {
                                 $daysClosed = 'なし';
                             } else {
-                                // Map of English day names to Japanese.
-                                $daysMap = [
-                                    "Sunday" => "日曜日",
-                                    "Monday" => "月曜日",
-                                    "Tuesday" => "火曜日",
-                                    "Wednesday" => "水曜日",
-                                    "Thursday" => "木曜日",
-                                    "Friday" => "金曜日",
-                                    "Saturday" => "土曜日"
-                                ];
-
-                                $japaneseDays = array_map(function($day) use ($daysMap) {
-                                    return $daysMap[$day];
-                                }, $days);
-
-                                $daysClosed = implode('、', $japaneseDays);
+                                $daysArray = $restaurant->days_closed;
+                                foreach ($daysArray as $key => $day) {
+                                    $daysArray[$key] = $day . '曜日';
+                                }
+                                $daysClosed = implode('、', $daysArray);
                             }
                         @endphp
                         <td>{{ $daysClosed }}</td>
@@ -181,6 +170,8 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- 店舗のレビュー -->
             <div class="d-flex align-items-center w-100 mb-4 px-2">
                 <h2 class="mb-0">レビュー</h3>
                 <div class="ms-auto">
@@ -286,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('content').value = content;
             document.getElementById('ratingInput').value = rating;
             document.getElementById('form-method').value = 'PUT';
-            document.getElementById('review-form-btn').innerHTML = '編集する';
+            document.getElementById('review-form-btn').innerHTML = '保存する';
 
             stars.forEach((star, i) => {
                 star.classList.remove('fas', 'fa-star-half-alt');

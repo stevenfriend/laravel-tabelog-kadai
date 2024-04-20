@@ -4,6 +4,7 @@
 
 <div class="d-flex flex-column align-items-center justify-content-center mx-auto p-3" id="main-container">
 
+    <!-- パンくずリスト -->
     <nav class="my-3 me-auto" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="{{ route('home') }}">ホーム</a></li>
@@ -11,6 +12,7 @@
         </ol>
     </nav>
 
+    <!-- 新規会員登録 -->
     <div class="d-flex justify-content-center bg-white rounded w-100 p-3">
         <div class="w-75">
                 <h1 class="my-3 text-center">新規会員登録</h1>

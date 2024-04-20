@@ -35,7 +35,7 @@
             </div>
         </div>
         @foreach($restaurants as $restaurant)
-        <a href="{{ route('restaurants.show', $restaurant) }}" class="restaurant-card">
+        <a href="{{ route('restaurants.show', $restaurant) }}" class="restaurant-card w-100">
             <div class="card highlight-card shadow-sm mb-3">
                 <div class="row g-0">
                     <div class="col-sm-4 img-container">

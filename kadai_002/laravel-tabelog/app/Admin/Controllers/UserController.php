@@ -16,7 +16,7 @@ class UserController extends AdminController
      *
      * @var string
      */
-    protected $title = 'User';
+    protected $title = '会員';
 
     /**
      * Make a grid builder.
@@ -27,14 +27,20 @@ class UserController extends AdminController
     {
         $grid = new Grid(new User());
 
-        $grid->column('id', __('Id'));
-        $grid->column('name', __('Name'));
-        $grid->column('furigana', __('Furigana'));
-        $grid->column('email', __('Email'));
-        $grid->column('email_verified_at', __('Email verified at'));
-        $grid->column('telephone', __('Telephone'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->disableCreateButton();
+
+        $grid->actions(function ($actions) {
+            $actions->disableEdit();
+        });
+
+        $grid->column('id', 'ID')->sortable();
+        $grid->column('name', 'お名前');
+        $grid->column('furigana', 'フリガナ');
+        $grid->column('email', 'メールアドレス');
+        $grid->column('email_verified_at', 'メール認証済み')->sortable();
+        $grid->column('telephone', '電話番号');
+        $grid->column('created_at', '作成日時')->sortable();
+        $grid->column('updated_at', '更新日時')->sortable();
 
         $grid->filter(function($filter) {
             $filter->like('name', '氏名');
@@ -59,32 +65,25 @@ class UserController extends AdminController
     {
         $show = new Show(User::findOrFail($id));
 
-        $show->field('id', __('Id'));
-        $show->field('name', __('Name'));
-        $show->field('furigana', __('Furigana'));
-        $show->field('email', __('Email'));
-        $show->field('email_verified_at', __('Email verified at'));
-        $show->field('telephone', __('Telephone'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $show->panel()->tools(function ($tools) {
+            $tools->disableEdit();
+        });
+
+        $show->field('id', 'ID');
+        $show->field('name', 'お名前');
+        $show->field('furigana', 'フリガナ');
+        $show->field('email', 'メールアドレス');
+        $show->field('email_verified_at', 'メール認証済み');
+        $show->field('telephone', '電話番号');
+        $show->field('created_at', '作成日時');
+        $show->field('updated_at', '更新日時');
 
         return $show;
     }
 
-    /**
-     * Make a form builder.
-     *
-     * @return Form
-     */
     protected function form()
     {
         $form = new Form(new User());
-
-        $form->text('name', __('Name'));
-        $form->text('furigana', __('Furigana'));
-        $form->email('email', __('Email'));
-        $form->datetime('email_verified_at', __('Email verified at'))->default(date('Y-m-d H:i:s'));
-        $form->text('telephone', __('Telephone'));
 
         return $form;
     }

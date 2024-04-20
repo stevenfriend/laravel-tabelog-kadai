@@ -20,66 +20,63 @@
   font-stretch: normal;
 }
 
-h1, h2, h3 {
+:root {
+  --primary-color: #0fbe9f;
+  --primary-color-light: #66d6c3;
+  --primary-color-dark: #0da88c;
+  --primary-color-shadow: rgba(15, 190, 159, 0.5);
+}
+
+h1, h2, h3, big, body, caption, label, 
+.nagoyameshi-check-label, 
+.nagoyameshi-require-input-label-text,
+.nagoyameshi-submit-button,
+.nagoyameshi-login-text {
   font-family: YuGo;
-  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
 }
 
 h1 {
+  font-weight: bold;
   font-size: 26px;
   letter-spacing: -0.13px;
 }
 
 h2 {
+  font-weight: bold;
   font-size: 22px;
   letter-spacing: normal;
 }
 
 h3 {
+  font-weight: bold;
   font-size: 18px;
   letter-spacing: 0.04px;
 }
 
 big {
-  font-family: YuGo;
   font-size: 16px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: 0.08px;
 }
 
 body {
-  font-family: YuGo;
   font-size: 14px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: 0.11px;
 }
 
 caption {
-  font-family: YuGo;
   font-size: 12px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: 0.08px;
 }
 
 label {
-  font-family: YuGo;
   font-size: 14px;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: normal;
   color: #191919;
 }
@@ -90,24 +87,20 @@ label {
 }
 
 .form-check-input:checked {
-  background-color: #0fbe9f;
-  border: #0da88c
+  background-color: var(--primary-color);
+  border: var(--primary-color-dark)
 }
 
 .btn-close:focus,
 .nagoyameshi-input:focus,
 .form-check-input:focus {
-  border-color: #0fbe9f;
-  box-shadow: 0 0 0 0.2rem rgba(15, 190, 159, 0.5);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem var(--primary-color-shadow);
 }
 
 .nagoyameshi-check-label {
-  font-family: YuGo;
   font-size: 12px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: normal;
   color: #000000;
 }
@@ -120,43 +113,31 @@ label {
 }
 
 .nagoyameshi-require-input-label-text {
-  font-family: YuGo;
   font-size: 14px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: normal;
   color: #ffffff;
 }
 
 .nagoyameshi-submit-button {
-  font-family: YuGo;
   font-size: 14px;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: normal;
   color: #ffffff;
-  background-color: #0fbe9f;
+  background-color: var(--primary-color);
 }
 
 .nagoyameshi-login-text {
-  font-family: YuGo;
   font-size: 14px;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: normal;
-  color: #0fbe9f;
+  color: var(--primary-color);
   text-decoration: none;
 }
 
 .nagoyameshi-login-text:hover,
 .nagoyameshi-login-text:active {
-  color:  #0da88c;
+  color:  var(--primary-color-dark);
 }
 
 .nagoyameshi-header-container {
@@ -170,12 +151,12 @@ label {
 }
 
 .nagoyameshi-search-input:focus {
-  border-color: #0fbe9f;
-  box-shadow: 0 0 0 0.2rem rgba(15, 190, 159, 0.5);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem var(--primary-color-shadow);
 }
 
 .nagoyameshi-header-search-button {
-  background-color: #0fbe9f;
+  background-color: var(--primary-color);
 }
 
 .nagoyameshi-header-search-icon {
@@ -184,12 +165,12 @@ label {
 
 .nagoyameshi-favorite-button {
   border-radius: 2px;
-  border: solid 1px #0fbe9f;
+  border: solid 1px var(--primary-color);
   background-color: #ffffff;
 }
 
 .text-favorite {
-  color: #0fbe9f;
+  color: var(--primary-color);
 }
 
 .star-rating {
@@ -198,17 +179,17 @@ label {
   user-select: none; /* Standard syntax */
   font-size: 24px;
   stroke-width: 30px;
-  color: #ccc; /* Default star color */
+  color: #ccc;
 }
 
 .star-rating .fas,
 .star-rating .fa-star-half-alt {
-  color: #0fbe9f; /* Highlight color for selected stars */
+  color: var(--primary-color);
 }
 
 .star-rating .fa-star.hovered,
 .star-rating .fa-star-half-alt.hovered {
-  color: #66d6c3; /* Highlight color for hovered stars */
+  color: var(--primary-color-light);
 }
 
 .category-label {
@@ -226,15 +207,15 @@ label {
 
 .nagoyameshi-button {
   color: #ffffff;
-  border-color:  #0fbe9f;
-  background-color: #0fbe9f;
+  border-color:  var(--primary-color);
+  background-color: var(--primary-color);
 }
 
 .nagoyameshi-button:hover,
 .nagoyameshi-button:not(:disabled):not(.disabled):active {
   color: #ffffff;
-  border-color:  #0da88c;
-  background-color: #0da88c;
+  border-color:  var(--primary-color-dark);
+  background-color: var(--primary-color-dark);
   box-shadow: none;;
 }
 
@@ -243,7 +224,6 @@ label {
   height: 37px;
 }
 
-/* クレジットカード番号入力フォーム */
 .nagoyameshi-card-holder-name,
 .nagoyameshi-card-element {
   border-radius: .375rem;
@@ -296,21 +276,14 @@ label {
   min-height: 100%;
 }
 
-
-
-
 .top-page-card-img {
   object-fit: cover;
   width: 100%;
   max-height: 200px;
 }
 
-
-
-
-
 .rating-star {
-  color: #0fbe9f;
+  color: var(--primary-color);
   font-size: 20px;
 }
 
@@ -322,7 +295,6 @@ label {
 .card {
   background-color: white;
 }
-
 
 .restaurant-card,
 .restaurant-card:hover,
@@ -393,43 +365,31 @@ label {
   max-width: 1000px;
 }
 
-
-
-
-
-
-/* Custom pagination styles */
-
-/* Background color for the active page */
 .pagination .page-item.active .page-link {
-    color: #fff; /* Color for page numbers */
-    background-color: #0fbe9f; /* Bootstrap primary color example */
-    border-color: #0fbe9f; /* Border color to match */
+    color: #fff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
-/* Text color for the pages */
 .pagination .page-link {
-    color: #6c757d; /* Color for page numbers */
+    color: #6c757d;
 }
 
-/* Hover effects */
 .pagination .page-link:hover {
-    color: #fff; /* Darker shade for hover state */
-    background-color: #6c757d; /* Light background on hover */
-    border-color: #dee2e6; /* Light border color on hover */
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #dee2e6;
 }
 
-/* Disabled state */
 .pagination .page-item.disabled .page-link {
-    color: #6c757d; /* Muted text color for disabled */
-    background-color: #fff; /* White background for disabled */
-    border-color: #dee2e6; /* Light border for disabled */
+    color: #6c757d;
+    background-color: #fff;
+    border-color: #dee2e6;
 }
 
-/* Custom focus styles for pagination links */
 .pagination .page-link:focus {
-  border-color: #0fbe9f; /* Example focus border color */
-  box-shadow: 0 0 0 0.2rem rgba(15, 190, 159, 0.5); /* Optional: Custom focus shadow */
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem var(--primary-color-shadow);
 }
 
 .breadcrumb-item {
@@ -437,24 +397,24 @@ label {
 }
 
 .breadcrumb-item > a {
-  color: #0fbe9f;
+  color: var(--primary-color);
   text-decoration: none;
 }
 
 .breadcrumb-item > a:hover {
-  color: #0da88c;
+  color: var(--primary-color-dark);
   text-decoration: none;
 }
 
 .mypage-menu-item {
-  box-shadow: 5px 5px #0fbe9f;
+  box-shadow: 5px 5px var(--primary-color);
   transition: all .2s;
   color: #000000;
 }
 
 .mypage-menu-item:hover {
   transform: translate(2px, 2px);
-  box-shadow: 3px 3px #0da88c;
+  box-shadow: 3px 3px var(--primary-color-dark);
   border-color: #000000;
 }
 

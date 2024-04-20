@@ -17,7 +17,7 @@ class ReservationController extends AdminController
      *
      * @var string
      */
-    protected $title = 'Reservation';
+    protected $title = '予約';
 
     /**
      * Make a grid builder.
@@ -28,15 +28,22 @@ class ReservationController extends AdminController
     {
         $grid = new Grid(new Reservation());
 
-        $grid->column('id', __('Id'))->sortable();
-        $grid->column('reservation_date', __('Reservation date'))->sortable();
-        $grid->column('reservation_time', __('Reservation time'));
-        $grid->column('restaurant_id', __('Restaurant id'))->sortable();
-        $grid->column('restaurant.name', __('Restaurant name'));
-        $grid->column('number_of_people', __('Number of people'))->sortable();
-        $grid->column('user.name', __('User'));
-        $grid->column('created_at', __('Created at'))->sortable();
-        $grid->column('updated_at', __('Updated at'))->sortable();
+        $grid->disableCreateButton();
+
+        $grid->actions(function ($actions) {
+            $actions->disableEdit();
+        });
+
+        $grid->column('id', 'ID')->sortable();
+        $grid->column('restaurant_id', '店舗ID')->sortable();
+        $grid->column('restaurant.name', '店舗名');
+        $grid->column('user_id', '会員ID')->sortable();
+        $grid->column('user.name', '会員名');
+        $grid->column('reservation_date', '予約日付')->sortable();
+        $grid->column('reservation_time', '予約時間');
+        $grid->column('number_of_people', '人数')->sortable();
+        $grid->column('created_at', '作成日時')->sortable();
+        $grid->column('updated_at', '更新日時')->sortable();
 
         $grid->filter(function($filter) {
             $filter->like('restaurant.name', '店舗名');
@@ -58,30 +65,27 @@ class ReservationController extends AdminController
     {
         $show = new Show(Reservation::findOrFail($id));
 
-        $show->field('id', __('Id'));
-        $show->field('reservation_date', __('Reservation date'));
-        $show->field('reservation_time', __('Reservation time'));
-        $show->field('number_of_people', __('Number of people'));
-        $show->field('restaurant_id', __('Restaurant id'));
-        $show->field('user_id', __('User id'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $show->panel()->tools(function ($tools) {
+            $tools->disableEdit();
+        });
+
+        $show->field('id', 'ID');
+        $show->field('restaurant_id', '店舗ID');
+        $show->field('restaurant.name', '店舗名');
+        $show->field('user_id', '会員ID');
+        $show->field('user.name', '会員名');
+        $show->field('reservation_date', '予約日付');
+        $show->field('reservation_time', '予約時間');
+        $show->field('number_of_people', '人数');
+        $show->field('created_at', '作成日時');
+        $show->field('updated_at', '更新日時');
 
         return $show;
     }
 
-    /**
-     * Make a form builder.
-     *
-     * @return Form
-     */
     protected function form()
     {
         $form = new Form(new Reservation());
-
-        $form->date('reservation_date', __('Reservation date'))->default(date('Y-m-d'));
-        $form->time('reservation_time', __('Reservation time'))->default(date('H:i:s'));
-        $form->number('number_of_people', __('Number of people'));
 
         return $form;
     }

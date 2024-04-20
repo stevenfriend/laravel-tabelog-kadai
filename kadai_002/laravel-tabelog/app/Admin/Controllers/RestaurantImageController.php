@@ -16,7 +16,7 @@ class RestaurantImageController extends AdminController
      *
      * @var string
      */
-    protected $title = 'RestaurantImage';
+    protected $title = '店舗の画像';
 
     /**
      * Make a grid builder.
@@ -27,17 +27,16 @@ class RestaurantImageController extends AdminController
     {
         $grid = new Grid(new RestaurantImage());
 
-        $grid->column('id', __('Id'))->sortable();
-        $grid->column('file_path', __('Restaurant image'))->image();
-        $grid->column('restaurant_id', __('Restaurant id'))->sortable();
-        $grid->column('restaurant.name', __('Restaurant id'));
-        $grid->column('description', __('Description'));
-        $grid->column('created_at', __('Created at'))->sortable();
-        $grid->column('updated_at', __('Updated at'))->sortable();
+        $grid->column('id', 'ID')->sortable();
+        $grid->column('file_path', '画像')->image();
+        $grid->column('restaurant_id', '店舗ID')->sortable();
+        $grid->column('restaurant.name', '店舗名');
+        $grid->column('description', '説明');
+        $grid->column('created_at', '作成日時')->sortable();
+        $grid->column('updated_at', '更新日時')->sortable();
 
         $grid->filter(function($filter) {
-            $filter->in('restaurant_id', '店舗')->multipleSelect(Restaurant::all()->pluck('name', 'id'));
-            $filter->like('restaurant.name', '店舗名');
+            $filter->like('restaurant.name', '店舗名')->multipleSelect(Restaurant::all()->pluck('name', 'id'));
             $filter->like('description', '画像説明');
             $filter->between('created_at', '作成日時');
         });
@@ -55,13 +54,13 @@ class RestaurantImageController extends AdminController
     {
         $show = new Show(RestaurantImage::findOrFail($id));
 
-        $show->field('id', __('Id'));
-        $show->field('file_path', __('File path'))->image();
-        $show->field('restaurant_id', __('Restaurant id'));
-        $show->field('restaurant.name', __('Restaurant name'));
-        $show->field('description', __('Description'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $show->field('id', 'ID');
+        $show->field('file_path', '画像')->image();
+        $show->field('restaurant_id', '店舗ID');
+        $show->field('restaurant.name', '店舗名');
+        $show->field('description', '説明');
+        $show->field('created_at', '作成日時');
+        $show->field('updated_at', '更新日時');
 
         return $show;
     }
@@ -75,15 +74,20 @@ class RestaurantImageController extends AdminController
     {
         $form = new Form(new RestaurantImage());
 
-        $form->select('restaurant_id', __('Restaurant'))->options(Restaurant::all()->pluck('name', 'id'));
-        $form->image('file_path', __('File path'))
-        ->move('img/uploads', function ($file) {
-            // 一意のファイル名を生成する
-            return date('Ym/d') . '/' . Str::random(40) . '.' . $file->guessExtension();
-        })
-        ->removable()
-        ->uniqueName();
-        $form->text('description', __('Description'));
+        $form->select('restaurant_id', '店舗')->options(Restaurant::all()->pluck('name', 'id'))             ->rules('required', [
+            'required' => '店舗を選択してください。',
+        ]);;
+        $form->image('file_path', '画像')
+             ->move('img/uploads', function ($file) {
+                 // 一意のファイル名を生成する
+                 return date('Ym/d') . '/' . Str::random(40) . '.' . $file->guessExtension();
+             })
+             ->removable()
+             ->uniqueName()
+             ->rules('required', [
+                'required' => '画像が必要です。',
+            ]);;
+        $form->text('description', '説明');
 
         return $form;
     }

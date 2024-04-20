@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content bg-white">
         <div class="modal-header">
-            <h5 class="modal-title" id="reviewModalLabel">{{$restaurant->name}}のレビュー</h5>
+            <h5 class="modal-title" id="reviewModalLabel">{{ $restaurant->name }}のレビュー</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -11,7 +11,7 @@
                 @csrf
                 <input type="hidden" name="method" id="form-method" value="POST">
                 <input type="hidden" name="review_id" id="review-id" value="">
-                <input type="hidden" name="restaurant_id" value="{{$restaurant->id}}">
+                <input type="hidden" name="restaurant_id" value="{{ $restaurant->id }}">
                 
                 <!-- 評価 -->
                 <div class="form-group mb-3">

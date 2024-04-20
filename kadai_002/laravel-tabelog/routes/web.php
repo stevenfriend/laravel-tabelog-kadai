@@ -53,5 +53,3 @@ Route::delete('reservations/{reservation}', [ReservationController::class, 'dest
 Route::get('restaurants/{restaurant}/favorite', [RestaurantController::class, 'favorite'])->name('restaurants.favorite');
 Route::resource('restaurants', RestaurantController::class);
 Auth::routes(['verify' => true]);
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,12 +1,14 @@
 <nav class="navbar navbar-expand-md navbar-light shadow-sm nagoyameshi-header-container d-flex flex-column">
 
     <div class="container d-flex justify-content-between align-items-center w-100">
+        <!-- ブランディング -->
         <div>
             <a class="navbar-brand m-0" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
             </a>
         </div>
 
+        <!-- 店舗検索 -->
         <form action="{{ route('restaurants.index') }}" method="GET">
         @csrf
             <div class="btn-group d-flex align-items-stretch" role="group" aria-label="search group">
@@ -22,6 +24,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <!-- ナビゲーション・リンク -->
         <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
             <ul class="navbar-nav text-center mt-2">
                 @guest
@@ -40,6 +43,7 @@
         </div>
     </div>
 
+    <!-- カテゴリのボタン -->
     <div class="collapse" id="navbarCategories">
         <ul class="category-menu m-3">
         @foreach ($categories as $category)
