@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Pagination\Paginator;
 use App\Http\Composers\CategoryComposer;
 
@@ -28,5 +30,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         View::composer('components.header', CategoryComposer::class);
+        if (App::environment(['production'])) {
+            URL::forceScheme('https');
+        }
     }
 }
