@@ -16,14 +16,17 @@ class Restaurant extends Model
     {
         parent::boot();
 
-        // レストランが削除されるとき、関連する画像も削除する
         static::deleting(function ($restaurant) {
+            // レストランが削除されるとき、関連するお気に入りも削除する
+            $restaurant->favorites()->delete();
+
+            // レストランが削除されるとき、関連する画像も削除する
             $restaurant->images->each(function ($image) {
                 $image->delete();
                 // ストレージから画像ファイルを削除する
                 try {
-                    if (Storage::disk('public')->exists($image->file_path)) {
-                        Storage::disk('public')->delete($image->file_path);
+                    if (Storage::disk('admin')->exists($image->file_path)) {
+                        Storage::disk('admin')->delete($image->file_path);
                     } else {
                         Log::error("ファイルが見つかりませんでした； { $image->file_path }");
                     }

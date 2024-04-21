@@ -8,6 +8,14 @@ use Carbon\Carbon;
 
 <div class="d-flex flex-column align-items-center justify-content-center mx-auto p-3" id="main-container">
 
+    <!-- セッションメッセージを表示 -->
+    @if (session('reservation_delete_success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('reservation_delete_success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
     <!-- パンくずリスト -->
     <nav class="my-3 me-auto" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
