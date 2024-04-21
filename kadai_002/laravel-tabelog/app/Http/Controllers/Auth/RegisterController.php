@@ -51,13 +51,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9\s\-ぁ-んァ-ン一-龯]+$/u'],
             'furigana' => ['required', 'regex:/^[\p{Katakana}ー\x{0020}\x{3000}]+$/u'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'telephone' => ['required', 'string', 'regex:/^\+?\d{2,3}-?\d{4}-?\d{4}$/'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ], [
             'name.required' => '名前は必須です。',
+            'name.regex' => '特殊文字を使用しないでください。',
             'furigana.required' => 'フリガナは必須です。',
             'furigana.regex' => 'フリガナはカタカナで入力してください。',
             'email.required' => 'メールアドレスは必須です。',

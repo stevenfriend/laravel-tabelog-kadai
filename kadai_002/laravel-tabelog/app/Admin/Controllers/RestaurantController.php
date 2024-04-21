@@ -158,7 +158,7 @@ class RestaurantController extends AdminController
             '土' => '土曜日',
         ]);
         $form->number('seating_capacity', '座席数')
-             ->min(0)
+             ->min(1)
              ->rules('required', [
             'required' => '座席数が必要です。',
         ]);

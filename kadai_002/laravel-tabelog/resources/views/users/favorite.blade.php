@@ -19,60 +19,62 @@
 
         <h1 class="my-3 text-center">お気に入り</h1>
 
-        @foreach ($favorites as $favorite)
-
-        @php
-        $restaurant = $favorite->favoriteable;
-        @endphp
-
-        <div class="card highlight-card shadow-sm mb-3 clickable" data-href="{{ route('restaurants.show', $restaurant) }}">
-            <div class="row g-0">
-                <div class="col-sm-4 img-container">
-                    @if(isset($restaurant->images) && $restaurant->images->isNotEmpty())
-                    <img src="{{ asset($restaurant->images[0]->file_path) }}" class="rounded-start" alt="{{ $restaurant->images[0]->description }}">
-                    @else
-                    <img src="{{ asset('img/nophoto.png') }}" class="rounded-start" alt="画像なし">
-                    @endif
-                </div>
-                <div class="col-sm-8 card-body d-flex flex-column justify-content-between">
-                    <div>
-                        <h3 class="card-title m-0">{{ $restaurant->name }}</h3>
-                        <p class="card-text text-body-secondary m-0">{{ $restaurant->category->name }}</p>
+        @if ($favorites->isEmpty())
+            <hr class="w-75 m-auto pb-1">
+            <h3 class="my-3 text-center">現在、お気に入りのお店が登録されておりません。</h3>
+        @else
+            @foreach ($favorites as $favorite)
+                @php
+                    $restaurant = $favorite->favoriteable;
+                @endphp
+                <div class="card highlight-card shadow-sm mb-3 clickable" data-href="{{ route('restaurants.show', $restaurant) }}">
+                    <div class="row g-0">
+                        <div class="col-sm-4 img-container">
+                            @if(isset($restaurant->images) && $restaurant->images->isNotEmpty())
+                            <img src="{{ asset($restaurant->images[0]->file_path) }}" class="rounded-start" alt="{{ $restaurant->images[0]->description }}">
+                            @else
+                            <img src="{{ asset('img/nophoto.png') }}" class="rounded-start" alt="画像なし">
+                            @endif
+                        </div>
+                        <div class="col-sm-8 card-body d-flex flex-column justify-content-between">
+                            <div>
+                                <h3 class="card-title m-0">{{ $restaurant->name }}</h3>
+                                <p class="card-text text-body-secondary m-0">{{ $restaurant->category->name }}</p>
+                            </div>
+                            @php
+                                $description = $restaurant->description;
+                                if(mb_strlen($description) > 60) {
+                                    $description = mb_substr($description, 0, 60) . "...詳細を見る";
+                                }
+                            @endphp
+                            <p class="card-text m-0">{{ $description }}</p>
+                            <!-- 店舗の平均評価 -->
+                            @php
+                            $rating = $restaurant->reviews_avg_rating;
+                            $fullStars = floor($rating);
+                            $halfStar = $rating - $fullStars >= 0.5 ? 1 : 0;
+                            $emptyStars = 5 - $fullStars - $halfStar;
+                            @endphp
+                            <div class="rating d-flex align-items-center my-2">
+                                @for ($i = 0; $i < $fullStars; $i++)
+                                <i class="fas fa-star rating-star"></i>
+                                @endfor
+                                @if ($halfStar)
+                                <i class="fas fa-star-half-alt rating-star"></i>
+                                @endif
+                                @for ($i = 0; $i < $emptyStars; $i++)
+                                <i class="far fa-star rating-star"></i>
+                                @endfor
+                                <div class="ps-2 fs-5"><b>{{ round($rating, 1) }}</b>（{{ $restaurant->reviews_count }}件）</div>
+                            </div>
+                            <a href="{{ route('restaurants.favorite', $restaurant) }}" class="btn nagoyameshi-button floating-btn text-favorite">
+                                <i class="fa fa-heart"></i> 解除
+                            </a>
+                        </div>
                     </div>
-                    @php
-                        $description = $restaurant->description;
-                        if(mb_strlen($description) > 60) {
-                            $description = mb_substr($description, 0, 60) . "...詳細を見る";
-                        }
-                    @endphp
-                    <p class="card-text m-0">{{ $description }}</p>
-                    @php
-                    $rating = $restaurant->reviews_avg_rating;
-                    $fullStars = floor($rating);
-                    $halfStar = $rating - $fullStars >= 0.5 ? 1 : 0;
-                    $emptyStars = 5 - $fullStars - $halfStar;
-                    @endphp
-                    <div class="rating d-flex align-items-center my-2">
-                        @for ($i = 0; $i < $fullStars; $i++)
-                        <i class="fas fa-star rating-star"></i>
-                        @endfor
-                        @if ($halfStar)
-                        <i class="fas fa-star-half-alt rating-star"></i>
-                        @endif
-                        @for ($i = 0; $i < $emptyStars; $i++)
-                        <i class="far fa-star rating-star"></i>
-                        @endfor
-                        <div class="ps-2 fs-5"><b>{{ round($rating, 1) }}</b>（{{ $restaurant->reviews_count }}件）</div>
-                    </div>
-                    <a href="{{ route('restaurants.favorite', $restaurant) }}" class="btn nagoyameshi-button floating-btn text-favorite">
-                        <i class="fa fa-heart"></i> 解除
-                    </a>
                 </div>
-            </div>
-        </div>
-
-
-        @endforeach
+            @endforeach
+        @endif
 
         <div class="d-flex justify-content-center">{{ $favorites->links('vendor.pagination.bootstrap-4') }}</div>
 

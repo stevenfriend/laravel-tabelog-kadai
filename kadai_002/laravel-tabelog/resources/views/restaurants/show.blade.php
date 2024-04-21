@@ -73,6 +73,7 @@
 
             <div class="mb-5">
                 <h1>{{ $restaurant->name }}</h2>
+                <!-- 店舗の平均評価 -->
                 @php
                     $fullStars = floor($rating);
                     $halfStar = $rating - $fullStars >= 0.5 ? 1 : 0;
@@ -137,7 +138,7 @@
                         <tr>
                         <th scope="row" style="width: 100px;">定休日</th>
                         @php
-                            if (is_null($restaurant->days_closed) || empty($restaurant->days_closed)) {
+                            if (empty($restaurant->days_closed[0])) {
                                 $daysClosed = 'なし';
                             } else {
                                 $daysArray = $restaurant->days_closed;
@@ -187,58 +188,63 @@
                 </div>
             </div>
             <hr>
-            @foreach($reviews as $review)
-            <div class="card mb-3">
-                <h5 class="card-header bg-secondary text-white">{{ $review->user->name }}さん</h5>
-                <div class="card-body">
-                    <div class="rating d-flex align-items-center mb-3">
-                    @php
-                        $fullStars = floor($review->rating);
-                        $halfStar = $review->rating - $fullStars >= 0.5 ? 1 : 0;
-                        $emptyStars = 5 - $fullStars - $halfStar;
-                    @endphp
-                    @for ($i = 0; $i < $fullStars; $i++)
-                        <i class="fas fa-star rating-star"></i>
-                    @endfor
-                    @if ($halfStar)
-                        <i class="fas fa-star-half-alt rating-star"></i>
-                    @endif
-                    @for ($i = 0; $i < $emptyStars; $i++)
-                        <i class="far fa-star rating-star"></i>
-                    @endfor
-                        <h5 class="card-title fw-bold mb-0 mx-2">{{$review->title}}</h5>
-                    </div>
-                    <p class="card-text fs-6">{{ $review->content }}</p>
-                    <div class="d-flex justify-content-between w-100">
-                        <div class="d-flex flex-column">
-                            @if($review->created_at == $review->updated_at)
-                            <p class="card-text"><small class="text-body-secondary">{{ date("Y年m月d日", strtotime($review->created_at)); }} にレビュー済み</small></p>
-                            @else
-                            <p class="card-text">
-                                <small class="text-body-secondary">{{ date("Y年m月d日", strtotime($review->created_at)); }} にレビュー済み</small><br>
-                                <small class="text-body-secondary">({{ date("Y年m月d日", strtotime($review->updated_at)); }} にレビュー編集)</small>
-                            </p>
+            @if($reviews->isEmpty())
+                <h3 class="p-3 text-center">このお店にはまだレビューがありません。</h3>
+            @else
+                @foreach($reviews as $review)
+                <div class="card mb-3">
+                    <h5 class="card-header bg-secondary text-white">{{ $review->user->name }}さん</h5>
+                    <div class="card-body">
+                        <div class="rating d-flex align-items-center mb-3">
+                        <!-- レビューの評価 -->
+                        @php
+                            $fullStars = floor($review->rating);
+                            $halfStar = $review->rating - $fullStars >= 0.5 ? 1 : 0;
+                            $emptyStars = 5 - $fullStars - $halfStar;
+                        @endphp
+                        @for ($i = 0; $i < $fullStars; $i++)
+                            <i class="fas fa-star rating-star"></i>
+                        @endfor
+                        @if ($halfStar)
+                            <i class="fas fa-star-half-alt rating-star"></i>
+                        @endif
+                        @for ($i = 0; $i < $emptyStars; $i++)
+                            <i class="far fa-star rating-star"></i>
+                        @endfor
+                            <h5 class="card-title fw-bold mb-0 mx-2">{{$review->title}}</h5>
+                        </div>
+                        <p class="card-text fs-6">{{ $review->content }}</p>
+                        <div class="d-flex justify-content-between w-100">
+                            <div class="d-flex flex-column">
+                                @if($review->created_at == $review->updated_at)
+                                <p class="card-text"><small class="text-body-secondary">{{ date("Y年m月d日", strtotime($review->created_at)); }} にレビュー済み</small></p>
+                                @else
+                                <p class="card-text">
+                                    <small class="text-body-secondary">{{ date("Y年m月d日", strtotime($review->created_at)); }} にレビュー済み</small><br>
+                                    <small class="text-body-secondary">({{ date("Y年m月d日", strtotime($review->updated_at)); }} にレビュー編集)</small>
+                                </p>
+                                @endif
+                            </div>
+                            @if($subscribed && auth()->user()->id === $review->user_id)
+                            <form class="d-flex justify-content-end m-1" action="{{ route('reviews.destroy', ['review' => $review->id]) }}" method="POST">
+                                <a href="" class="btn btn-primary nagoyameshi-button ms-1 edit-review-btn"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#reviewModal"
+                                    data-review-id="{{ $review->id }}"
+                                    data-review-title="{{ $review->title }}"
+                                    data-review-content="{{ $review->content }}"
+                                    data-review-rating="{{ $review->rating }}">編集</a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger ms-1">削除</button>
+                            </form>
                             @endif
                         </div>
-                        @if($subscribed && auth()->user()->id === $review->user_id)
-                        <form class="d-flex justify-content-end m-1" action="{{ route('reviews.destroy', ['review' => $review->id]) }}" method="POST">
-                            <a href="" class="btn btn-primary nagoyameshi-button ms-1 edit-review-btn"
-                                data-bs-toggle="modal"
-                                data-bs-target="#reviewModal"
-                                data-review-id="{{ $review->id }}"
-                                data-review-title="{{ $review->title }}"
-                                data-review-content="{{ $review->content }}"
-                                data-review-rating="{{ $review->rating }}">編集</a>
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger ms-1">削除</button>
-                        </form>
-                        @endif
                     </div>
                 </div>
-            </div>
-            @endforeach
-            <div class="d-flex justify-content-center">{{ $reviews->links('vendor.pagination.bootstrap-4') }}</div>
+                @endforeach
+                <div class="d-flex justify-content-center">{{ $reviews->links('vendor.pagination.bootstrap-4') }}</div>
+            @endif
     </div>
 
 </div>

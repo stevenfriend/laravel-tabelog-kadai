@@ -30,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         View::composer('components.header', CategoryComposer::class);
+        View::composer('components.header', function ($view) {
+            $keyword = request()->get('keyword', '');
+            $view->with('keyword', $keyword);
+        });
         if (App::environment(['production'])) {
             URL::forceScheme('https');
         }

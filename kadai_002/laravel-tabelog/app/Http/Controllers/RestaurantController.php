@@ -39,7 +39,8 @@ class RestaurantController extends Controller
     
         switch ($request->input('sort_by')) {
             case 'rating_desc':
-                $query->orderBy('reviews_avg_rating', 'desc');
+                $query->orderBy('reviews_avg_rating', 'desc')
+                      ->orderBy('reviews_count', 'desc');
                 break;
             case 'created_at_desc':
                 $query->orderBy('created_at', 'desc');
@@ -51,8 +52,9 @@ class RestaurantController extends Controller
     
         $restaurants = $query->paginate(15);
         $category = $request->filled('category') ? Category::find($request->category) : null;
+        $keyword = $request->filled('keyword') ? $request->keyword : null;
     
-        return view('restaurants.index', compact('restaurants', 'category'));
+        return view('restaurants.index', compact('restaurants', 'category', 'keyword'));
     }
 
     /**

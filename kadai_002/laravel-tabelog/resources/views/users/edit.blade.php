@@ -28,7 +28,7 @@
                         <label for="name" class="text-md-left nagoyameshi-edit-user-info-label">氏名</label>
                     </div>
                     <div class="collapse show">
-                        <input id="name" type="text" class="form-control nagoyameshi-input @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
+                        <input id="name" type="text" class="form-control nagoyameshi-input @error('name') is-invalid @enderror" name="name" value="{{ old('name') ?? $user->name }}" required autocomplete="name" autofocus>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -42,7 +42,7 @@
                         <label for="furigana" class="text-md-left nagoyameshi-edit-user-info-label">フリガナ</label>
                     </div>
                     <div class="collapse show">
-                        <input id="furigana" type="text" class="form-control nagoyameshi-input @error('furigana') is-invalid @enderror" name="furigana" value="{{ $user->furigana }}" required>
+                        <input id="furigana" type="text" class="form-control nagoyameshi-input @error('furigana') is-invalid @enderror" name="furigana" value="{{ old('furigana') ?? $user->furigana }}" required>
                         @error('furigana')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -56,7 +56,7 @@
                         <label for="email" class="text-md-left nagoyameshi-edit-user-info-label">メールアドレス</label>
                     </div>
                     <div class="collapse show editUserMail">
-                        <input id="email" type="email" class="form-control nagoyameshi-input @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
+                        <input id="email" type="email" class="form-control nagoyameshi-input @error('email') is-invalid @enderror" name="email" value="{{ old('email') ?? $user->email }}" required autocomplete="email">
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -70,7 +70,7 @@
                         <label for="telephone" class="text-md-left nagoyameshi-edit-user-info-label">電話番号</label>
                     </div>
                     <div class="collapse show">
-                        <input id="telephone" type="tel" class="form-control nagoyameshi-input @error('telephone') is-invalid @enderror" name="telephone" value="{{ $user->telephone }}" required>
+                        <input id="telephone" type="tel" class="form-control nagoyameshi-input @error('telephone') is-invalid @enderror" name="telephone" value="{{ old('telephone') ?? $user->telephone }}" required>
                         @error('telephone')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

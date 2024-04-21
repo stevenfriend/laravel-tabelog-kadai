@@ -15,7 +15,7 @@
                 <button class="btn nagoyameshi-button nagoyameshi-category-button flex-shrink-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCategories" aria-expanded="false" aria-controls="navbarCategories">
                     カテゴリ<i class="fas fa-chevron-down"></i>
                 </button>
-                <input type="text" name="keyword" class="form-control flex-fill nagoyameshi-search-input" placeholder="店舗名・カテゴリ">
+                <input type="text" name="keyword" class="form-control flex-fill nagoyameshi-search-input" placeholder="店舗名・カテゴリ" value="{{ $keyword ?? '' }}">
                 <button type="submit" class="btn nagoyameshi-button flex-shrink-0"><i class="fas fa-search nagoyameshi-header-search-icon"></i></button>
             </div>
         </form>

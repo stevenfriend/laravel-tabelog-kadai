@@ -38,6 +38,7 @@
                                 <div class="card-body p-3">
                                     <h5 class="card-title">{{ $restaurant->name }}</h5>
                                     <p class="card-text text-body-secondary m-0">{{ $restaurant->category->name }}</p>
+                                    <!-- 店舗の平均評価 -->
                                     @php
                                         $rating = $restaurant->reviews_avg_rating;
                                         $fullStars = floor($rating);
@@ -91,6 +92,7 @@
                                 <div class="card-body p-3">
                                     <h5 class="card-title">{{ $restaurant->name }}</h5>
                                     <p class="card-text text-body-secondary m-0">{{ $restaurant->category->name }}</p>
+                                    <!-- 店舗の平均評価 -->
                                     @php
                                         $rating = $restaurant->reviews_avg_rating;
                                         $fullStars = floor($rating);
@@ -144,6 +146,7 @@
                                 <div class="card-body p-3">
                                     <h5 class="card-title">{{ $restaurant->name }}</h5>
                                     <p class="card-text text-body-secondary m-0">{{ $restaurant->category->name }}</p>
+                                    <!-- 店舗の平均評価 -->
                                     @php
                                         $rating = $restaurant->reviews_avg_rating;
                                         $fullStars = floor($rating);
