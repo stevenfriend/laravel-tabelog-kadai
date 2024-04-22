@@ -39,6 +39,9 @@ class ReservationController extends Controller
         // カスタムバリデーションルールを定義します。
         Validator::extend('not_past_time', function ($attribute, $value, $parameters, $validator) use ($request) {
             $reservationDateTime = Carbon::parse($request->input('reservation_date') . ' ' . $value);
+            if (!$reservationDateTime->isToday()) {
+                return true; // 予約日が今日ではない場合、このルールは適用されません。
+            }
             return !$reservationDateTime->isPast();
         }, '予約時間が過去の時間であってはならない。');
 

@@ -20,9 +20,12 @@
             <h5 class="text-center pb-3">現在、仮会員の状態です。</h5>
             <h5 class="text-center pb-3">ただいま、ご入力いただいたメールアドレス宛に、ご本人様確認用のメールをお送りしました。</h5>
             <h5 class="text-center pb-3">メール本文内のURLをクリックすると本会員登録が完了となります。</h5>
-            <div class="text-center pb-3">
-                <a href="{{ route('home') }}" class="btn shadow-sm nagoyameshi-button w-50">ホームページへ</a>
-            </div>
+            <hr class="pb-3">
+            <p class="text-center pb-3">もしメールが届いてない場合は、以下のボタンをクリックしてメールを再送信してください</p>
+            <form class="d-flex justify-content-center" method="POST" action="{{ route('verification.resend') }}">
+                @csrf
+                <button type="submit" class="btn nagoyameshi-button mb-3">確認メールを再送信する</button>
+            </form>
         </div>
     </div>
 </div>
