@@ -24,14 +24,16 @@ class ReviewController extends Controller
             'rating.min' => '評価は0.5以上である必要があります。',
             'rating.max' => '評価は5以下である必要があります。',
             'title.required' => 'タイトルを入力してください。',
+            'title.max' => 'タイトルは20文字以下である必要があります。',
             'content.required' => '内容を入力してください。',
+            'content.max' => '内容は255文字以下である必要があります。',
         ];
 
         // リクエストデータ用のバリデータを作成します。
         $validator = Validator::make($request->all(), [
             'rating' => 'required|numeric|min:.5|max:5',
-            'title' => 'required',
-            'content' => 'required',
+            'title' => 'required|max:20',
+            'content' => 'required|max:255',
         ], $messages);
     
         // バリデータが失敗した場合のチェック。

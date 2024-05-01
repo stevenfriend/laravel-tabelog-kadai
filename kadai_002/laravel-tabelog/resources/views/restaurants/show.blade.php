@@ -262,14 +262,32 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     if (@json($errors->getBag('review')->any())) {
-        var reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
+        const stars = document.querySelectorAll('.star-rating .fa-star');
+        const rating = @json(old('rating'));
+        const reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
+
+        document.getElementById('review-title').value = @json(old('title'));
+        document.getElementById('review-content').value = @json(old('content'));
+        document.getElementById('ratingInput').value = rating;
+        
+        stars.forEach((star, i) => {
+            star.classList.remove('fas', 'fa-star-half-alt');
+            star.classList.add('far');
+            if (i + 1 <= rating) {
+                star.classList.add('fas');
+            } else if (i + 0.5 == rating) {
+                star.classList.add('fas', 'fa-star-half-alt');
+            }
+        });
+
         reviewModal.show();
     }
-
+    
     if (@json($errors->getBag('reservation')->any())) {
-        var reservationModal = new bootstrap.Modal(document.getElementById('reservationModal'));
+        const reservationModal = new bootstrap.Modal(document.getElementById('reservationModal'));
         reservationModal.show();
     }
+
     document.querySelectorAll('.edit-review-btn').forEach(button => {
         button.addEventListener('click', function() {
             const reviewId = this.getAttribute('data-review-id');
@@ -300,32 +318,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('reviewModal').addEventListener('hidden.bs.modal', function () {
         const stars = document.querySelectorAll('.star-rating .fa-star');
 
+        document.querySelectorAll('.review-error-message').forEach(el => el.textContent = '');
         document.getElementById('review').reset();
         document.getElementById('review').setAttribute('action', "{{ route('reviews.store') }}");
+        document.getElementById('ratingInput').value = '';
         document.getElementById('form-method').value = 'POST';
         document.getElementById('review-id').value = '';
-
+        
         stars.forEach((star, i) => {
             star.classList.remove('fas', 'fa-star-half-alt');
         });
     });
 });
 </script>
-
-@if($errors->any())
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    if (@json($errors->getBag('review')->any())) {
-        const reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
-        reviewModal.show();
-    }
-
-    if (@json($errors->getBag('reservation')->any())) {
-        const reservationModal = new bootstrap.Modal(document.getElementById('reservationModal'));
-        reservationModal.show();
-    }
-});
-</script>
-@endif
 
 @endsection

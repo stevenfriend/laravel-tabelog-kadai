@@ -24,7 +24,7 @@
                     </div>
                     @error('rating', 'review')
                     <span class="invalid-feedback d-block" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong class="review-error-message">{{ $message }}</strong>
                     </span>
                     @enderror
                 </div>
@@ -32,10 +32,10 @@
                 <!-- タイトル -->
                 <div class="mb-3">
                     <label for="title" class="form-label">タイトル</label>
-                    <input class="form-control nagoyameshi-input" id="title" name="title" type="text" value="{{ old('title') }}" required>
+                    <input class="form-control nagoyameshi-input" id="review-title" name="title" type="text" value="" required>
                     @error('title', 'review')
                     <span class="invalid-feedback d-block" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong class="review-error-message">{{ $message }}</strong>
                     </span>
                     @enderror
                  </div>
@@ -43,10 +43,10 @@
                 <!-- 内容 -->
                 <div class="mb-3">
                     <label for="content" class="form-label">レビュー</label>
-                    <textarea class="form-control nagoyameshi-input" id="content" name="content" rows="3" required>{{ old('content') }}</textarea>
+                    <textarea class="form-control nagoyameshi-input" id="review-content" name="content" rows="3" required></textarea>
                     @error('content', 'review')
                     <span class="invalid-feedback d-block" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong class="review-error-message">{{ $message }}</strong>
                     </span>
                     @enderror
                 </div>
